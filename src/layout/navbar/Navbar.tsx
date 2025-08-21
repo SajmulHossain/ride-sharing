@@ -3,6 +3,7 @@ import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 import Logo from "@/assets/logo/Logo";
 import { DarkModeToggler } from "@/components/DarkModeToggler";
+import { Link } from "react-router";
 
 const Navbar = () => {
   return (
@@ -17,12 +18,13 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             <DarkModeToggler />
             <Button
+            asChild
               variant="outline"
               className="hidden sm:inline-flex rounded-full"
             >
-              Sign In
+              <Link to="/login">Login</Link>
             </Button>
-            <Button className="rounded-full">Get Started</Button>
+            <Button className="rounded-full">Register</Button>
             {/* Mobile Menu */}
             <div className="md:hidden">
               <NavigationSheet />
