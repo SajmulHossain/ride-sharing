@@ -8,12 +8,12 @@ export interface ICustomerFeedback {
 
 export const feedbacks: ICustomerFeedback[] = [
   {
-    name: "Sarah Rahman",
+    name: "Sharif Uddin",
     feedback:
       "This app is so easy to use! I can book services instantly and the experience has been smooth every time.",
     rating: 5,
     location: "Dhaka, Bangladesh",
-    avatar: "https://i.pravatar.cc/100?img=5",
+    avatar: "https://i.pravatar.cc/100?img=52",
   },
   {
     name: "Amit Chowdhury",
@@ -24,12 +24,12 @@ export const feedbacks: ICustomerFeedback[] = [
     avatar: "https://i.pravatar.cc/100?img=12",
   },
   {
-    name: "Nasrin Akter",
+    name: "Nasir Udding",
     feedback:
       "The support team is excellent. They responded quickly and resolved my issue without hassle.",
     rating: 5,
     location: "Sylhet, Bangladesh",
-    avatar: "https://i.pravatar.cc/100?img=47",
+    avatar: "https://i.pravatar.cc/100?img=51",
   },
   {
     name: "Rafiq Uddin",
@@ -40,11 +40,11 @@ export const feedbacks: ICustomerFeedback[] = [
     avatar: "https://i.pravatar.cc/100?img=8",
   },
   {
-    name: "Farzana Yasmin",
+    name: "Tanvir Ahmed",
     feedback:
       "Great experience overall. The app is fast, secure, and makes my life easier.",
     rating: 4,
     location: "Khulna, Bangladesh",
-    avatar: "https://i.pravatar.cc/100?img=15",
+    avatar: "https://i.pravatar.cc/100?img=2",
   },
 ];
