@@ -1,11 +1,13 @@
+import Heading from "@/components/Heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { workSteps } from "@/constant/howItWork";
 
 const HowItsWork = () => {
   return (
     <section className="section">
+      <Heading heading="How it's work" description="Describe about how to use" />
       <Tabs defaultValue="rider" className="w-full">
-        <TabsList>
+        <TabsList className="mx-auto">
           {workSteps.map((step) => (
             <TabsTrigger key={step.value} value={step.value}>
               {step.label}
