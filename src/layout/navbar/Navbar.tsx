@@ -5,6 +5,8 @@ import Logo from "@/assets/logo/Logo";
 import { DarkModeToggler } from "@/components/DarkModeToggler";
 import { Link } from "react-router";
 
+
+
 const Navbar = () => {
   return (
     <header className="bg-muted">
@@ -18,7 +20,7 @@ const Navbar = () => {
           <div className="flex items-center gap-3">
             <DarkModeToggler />
             <Button
-            asChild
+              asChild
               variant="outline"
               className="hidden sm:inline-flex rounded-full"
             >
