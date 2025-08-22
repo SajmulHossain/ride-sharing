@@ -3,6 +3,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { NavMenu } from "./nav-menu";
 import Logo from "@/assets/logo/Logo";
+import { Separator } from "@/components/ui/separator";
 
 export const NavigationSheet = () => {
   return (
@@ -16,7 +17,8 @@ export const NavigationSheet = () => {
         <div className="mt-4 ml-4">
           <Logo />
         </div>
-        <NavMenu orientation="vertical" />
+        <Separator />
+        <NavMenu orientation="vertical" className="flex-none" />
       </SheetContent>
     </Sheet>
   );
