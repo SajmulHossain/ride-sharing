@@ -1,9 +1,10 @@
+import Logo from "@/assets/logo/Logo";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Separator } from "@/components/ui/separator";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
 import { NavMenu } from "./nav-menu";
-import Logo from "@/assets/logo/Logo";
-import { Separator } from "@/components/ui/separator";
+import { Link } from "react-router";
 
 export const NavigationSheet = () => {
   return (
@@ -14,11 +15,22 @@ export const NavigationSheet = () => {
         </Button>
       </SheetTrigger>
       <SheetContent>
-        <div className="mt-4 ml-4">
-          <Logo />
+        <SheetHeader className="pb-0">
+          <SheetTitle>
+            <Logo />
+          </SheetTitle>
+        </SheetHeader>
+        <Separator className="my-0" />
+        <div className="px-4">
+          <NavMenu orientation="vertical" className="flex-none" />
+          <Button
+            asChild
+            variant="outline"
+            className="inline-flex sm:hidden rounded-sm w-full mt-4"
+          >
+            <Link to="/login">Login</Link>
+          </Button>
         </div>
-        <Separator />
-        <NavMenu orientation="vertical" className="flex-none" />
       </SheetContent>
     </Sheet>
   );

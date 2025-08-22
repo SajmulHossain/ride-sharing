@@ -12,7 +12,7 @@ import { NavLink } from "react-router";
 
 export const NavMenu = (props: NavigationMenuProps) => (
   <NavigationMenu {...props}>
-    <NavigationMenuList className="space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start px-4">
+    <NavigationMenuList className="space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
       {navlinks.map((link) => (
         <NavigationMenuItem key={link.path} className="w-full md:w-fit">
           <NavigationMenuLink
