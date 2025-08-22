@@ -4,11 +4,13 @@ import { RouterProvider } from 'react-router'
 import './index.css'
 import { router } from './routes/index.ts'
 import { ThemeProvider } from './provider/ThemeProvider.tsx'
+import { Toaster } from './components/ui/sonner.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>  
      <ThemeProvider defaultTheme="system" storageKey="vite-ui-theme">
         <RouterProvider router={router} />
+        <Toaster position='top-center' richColors />
     </ThemeProvider>
   </StrictMode>,
 )
