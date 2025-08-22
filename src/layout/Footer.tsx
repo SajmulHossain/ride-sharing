@@ -35,7 +35,7 @@ const footerLinks = [
 const Footer = () => {
   return (
     <footer>
-      <div className="max-w-screen-xl mx-auto">
+      <div className="section">
         <div className="py-12 flex flex-col sm:flex-row items-start justify-between gap-x-8 gap-y-10 px-6 xl:px-0">
           <div>
             <Logo />

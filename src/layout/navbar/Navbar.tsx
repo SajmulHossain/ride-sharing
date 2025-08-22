@@ -9,10 +9,10 @@ import { Link } from "react-router";
 
 const Navbar = () => {
   return (
-    <header className="bg-muted">
-      <nav className="fixed top-6 inset-x-4 h-16 bg-background border dark:border-slate-700/70 max-w-screen-xl mx-auto rounded-full">
+    <header className="sticky inset-x-4 bg-background border dark:border-slate-700/70 py-3">
+      <nav className="section">
         <div className="h-full flex items-center justify-between mx-auto px-4">
-         <Logo />
+          <Logo />
 
           {/* Desktop Menu */}
           <NavMenu className="hidden md:block" />
