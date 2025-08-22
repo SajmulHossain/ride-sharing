@@ -2,35 +2,9 @@ import Logo from "@/assets/logo/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { navlinks } from "@/constant/navlinks";
 
 import { Link } from "react-router";
-
-const footerLinks = [
-  {
-    title: "Overview",
-    href: "#",
-  },
-  {
-    title: "Features",
-    href: "#",
-  },
-  {
-    title: "Pricing",
-    href: "#",
-  },
-  {
-    title: "Careers",
-    href: "#",
-  },
-  {
-    title: "Help",
-    href: "#",
-  },
-  {
-    title: "Privacy",
-    href: "#",
-  },
-];
 
 const Footer = () => {
   return (
@@ -41,13 +15,13 @@ const Footer = () => {
             <Logo />
 
             <ul className="mt-6 flex items-center gap-4 flex-wrap">
-              {footerLinks.map(({ title, href }) => (
-                <li key={title}>
+              {navlinks.map(({ label, path }) => (
+                <li key={path}>
                   <Link
-                    to={href}
+                    to={path}
                     className="text-muted-foreground hover:text-foreground"
                   >
-                    {title}
+                    {label}
                   </Link>
                 </li>
               ))}
