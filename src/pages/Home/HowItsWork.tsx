@@ -16,8 +16,8 @@ const HowItsWork = () => {
         </TabsList>
         {workSteps.map((step) => (
           <TabsContent key={step.value} className="space-y-4" value={step.value}>
-            {step.steps.map((value) => (
-              <div>
+            {step.steps.map((value, index) => (
+              <div key={index}>
                 <div>
                   <h2 className="font-semibold text-lg">{value.title}</h2>
                   {/* {<icon />} */}

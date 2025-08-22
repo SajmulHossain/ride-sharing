@@ -9,8 +9,8 @@ import { Link } from "react-router";
 
 const Navbar = () => {
   return (
-    <header className="sticky top-0 inset-x-4 bg-background border dark:border-slate-700/70 py-3 z-50">
-      <nav className="section">
+    <header className="sticky top-0 inset-x-4 bg-background border dark:border-slate-700/70 z-50">
+      <nav className="section py-3">
         <div className="h-full flex items-center justify-between mx-auto">
           <Logo />
 

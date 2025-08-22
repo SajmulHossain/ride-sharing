@@ -1,6 +1,7 @@
 import Banner from "./Banner";
+import Feedbacks from "./Feedbacks";
 import HowItsWork from "./HowItsWork";
-import ServiceHighlight from "./Service Highlight/ServiceHighlight";
+import ServiceHighlight from "./ServiceHighlight";
 
 const Home = () => {
   return (
@@ -8,6 +9,7 @@ const Home = () => {
       <Banner />
       <HowItsWork />
       <ServiceHighlight />
+      <Feedbacks />
     </>
   );
 };
