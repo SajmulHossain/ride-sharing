@@ -11,7 +11,7 @@ const Navbar = () => {
   return (
     <header className="sticky inset-x-4 bg-background border dark:border-slate-700/70 py-3">
       <nav className="section">
-        <div className="h-full flex items-center justify-between mx-auto px-4">
+        <div className="h-full flex items-center justify-between mx-auto">
           <Logo />
 
           {/* Desktop Menu */}
