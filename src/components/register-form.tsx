@@ -144,6 +144,7 @@ export function RegisterForm({
                   name="password"
                   render={({ field }) => (
                     <FormItem>
+                      <FormLabel>Password</FormLabel>
                       <FormControl>
                         <PasswordInput placeholder="Placeholder" {...field} />
                       </FormControl>
