@@ -1,33 +1,34 @@
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { useRegisterMutation } from "@/redux/features/auth/auth.api";
+import { sendResponse } from "@/utils/sendResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
-import { toast } from "sonner";
 import z from "zod";
 import PasswordInput from "./ui/password-input";
 
@@ -36,10 +37,25 @@ const formSchema = z.object({
     .string({ error: "Name is required" })
     .min(3, { error: "Name must be atleast 3 characters" }),
   email: z.email({ error: "Invalid email" }),
-  role: z.enum(["rider", "driver"], {error: "Please select your role"}),
+  role: z.enum(["rider", "driver"], { error: "Please select your role" }),
   password: z
-    .string({ error: "Password is required" })
-    .min(8, { error: "Password must be 8 characters long" }),
+    .string("Password must be string")
+    .min(8, { message: "Password must be at least 8 characters long." })
+    .regex(/^(?=.*[A-Z])/, {
+      message: "Password must contain at least 1 uppercase letter.",
+    })
+    .regex(/^(?=.*[!@#$%^&*])/, {
+      message: "Password must contain at least 1 special character.",
+    })
+    .regex(/^(?=.*\d)/, {
+      message: "Password must contain at least 1 number.",
+    }),
+  phone: z
+    .string("Phone Number must be string")
+    .regex(/^(?:\+8801\d{9}|01\d{9})$/, {
+      message:
+        "Phone number must be valid for Bangladesh. Format: +8801XXXXXXXXX or 01XXXXXXXXX",
+    }),
 });
 
 export function RegisterForm({
@@ -52,16 +68,15 @@ export function RegisterForm({
       email: "",
       name: "",
       password: "",
+      phone: "",
+      role: undefined
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    try {
-      console.log(values);
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
-    }
+  const [register, {isLoading}] = useRegisterMutation();
+
+ async function onSubmit(values: z.infer<typeof formSchema>) {
+    await sendResponse(() => register(values), "Register");
   }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -112,6 +127,23 @@ export function RegisterForm({
 
                 <FormField
                   control={form.control}
+                  name="phone"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Phone</FormLabel>
+                      <FormControl>
+                        <Input placeholder="Phone Number" {...field} />
+                      </FormControl>
+                      <FormDescription>
+                        This is your public display name.
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+
+                <FormField
+                  control={form.control}
                   name="role"
                   render={({ field }) => (
                     <FormItem>
@@ -145,7 +177,7 @@ export function RegisterForm({
                 />
 
                 <div className="flex flex-col gap-3">
-                  <Button type="submit" className="w-full">
+                  <Button disabled={isLoading} type="submit" className="w-full">
                     Register
                   </Button>
                   <Button variant="outline" className="w-full">

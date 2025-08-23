@@ -9,10 +9,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { sendResponse } from "@/utils/sendResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
-import { toast } from "sonner";
 import z from "zod";
 import {
   Form,
@@ -24,8 +24,6 @@ import {
   FormMessage,
 } from "./ui/form";
 import PasswordInput from "./ui/password-input";
-import type { ErrorResponse } from "@/types";
-import { sendResponse } from "@/utils/sendResponse";
 
 const formSchema = z.object({
   email: z.string({ error: "Email is required" }),

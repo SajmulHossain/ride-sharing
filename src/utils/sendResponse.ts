@@ -11,6 +11,9 @@ export const sendResponse = async <T>(
     toast.success(message + " successfull", { id: toastId });
   } catch (error: unknown) {
     const err = error as ErrorResponse;
+    if (import.meta.env.DEV) {
+      console.log(error);
+    }
     toast.error(err.data.message || `Failed to ${message}`, { id: toastId });
   }
 };
