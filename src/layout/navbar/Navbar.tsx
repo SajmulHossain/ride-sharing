@@ -4,10 +4,19 @@ import { NavigationSheet } from "./navigation-sheet";
 import Logo from "@/assets/logo/Logo";
 import { DarkModeToggler } from "@/components/DarkModeToggler";
 import { Link } from "react-router";
-import { useGetMeQuery } from "@/redux/features/auth/auth.api";
+import { authApi, useGetMeQuery, useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { sendResponse } from "@/utils/sendResponse";
+import { useAppDispatch } from "@/redux/hook";
 
 const Navbar = () => {
   const { data: user } = useGetMeQuery(undefined);
+  const [logout, { isLoading:isLoggingOut }] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await sendResponse(() => logout(undefined), "Logout");
+    dispatch(authApi.util.resetApiState());
+  }
 
   return (
     <header className="sticky top-0 inset-x-4 bg-background border dark:border-slate-700/70 z-50">
@@ -20,7 +29,7 @@ const Navbar = () => {
 
           <div className="flex items-center gap-3">
             <DarkModeToggler />
-            {user?.email ? (
+            {!user?.email ? (
               <>
                 <Button
                   asChild
@@ -35,7 +44,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button variant="outline">Logout</Button>
+                <Button onClick={handleLogout} disabled={isLoggingOut} variant="outline">Logout</Button>
               </>
             )}
             {/* Mobile Menu */}

@@ -12,7 +12,7 @@ import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { sendResponse } from "@/utils/sendResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import z from "zod";
 import {
   Form,
@@ -45,6 +45,7 @@ export function LoginForm({
   });
 
   const [login, { isLoading }] = useLoginMutation();
+  const navigate = useNavigate();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // const toastId = toast.loading("Checking Credintials");
@@ -57,6 +58,7 @@ export function LoginForm({
     // }
 
    await sendResponse(() => login(values), "Login");
+    navigate("/");
   }
 
   return (
