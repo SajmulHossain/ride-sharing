@@ -16,3 +16,10 @@ interface IErrorSources {
 interface Error {
   statusCode: number;
 }
+
+
+export interface Response<T> {
+  success: true,
+  message: string,
+  data: T
+}

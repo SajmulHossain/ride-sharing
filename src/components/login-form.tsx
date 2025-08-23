@@ -25,6 +25,7 @@ import {
 } from "./ui/form";
 import PasswordInput from "./ui/password-input";
 import type { ErrorResponse } from "@/types";
+import { sendResponse } from "@/utils/sendResponse";
 
 const formSchema = z.object({
   email: z.string({ error: "Email is required" }),
@@ -48,14 +49,16 @@ export function LoginForm({
   const [login, { isLoading }] = useLoginMutation();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const toastId = toast.loading("Checking Credintials");
-    try {
-      await login(values).unwrap();
-      toast.success("Logged in successfull", { id: toastId });
-    } catch (err: unknown) {
-      const error  = err as ErrorResponse;
-      toast.error(error?.data?.message || "Wrong credentials", { id: toastId });
-    }
+    // const toastId = toast.loading("Checking Credintials");
+    // try {
+    //   await login(values).unwrap();
+    //   toast.success("Logged in successfull", { id: toastId });
+    // } catch (err: unknown) {
+    //   const error  = err as ErrorResponse;
+    //   toast.error(error?.data?.message || "Wrong credentials", { id: toastId });
+    // }
+
+   await sendResponse(() => login(values), "Login");
   }
 
   return (
