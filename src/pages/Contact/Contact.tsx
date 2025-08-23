@@ -24,11 +24,11 @@ interface Contact2Props {
 }
 
 const formSchema = z.object({
-  first_name: z.string({ error: "First Name is required" }).min(1),
-  last_name: z.string({ error: "Last Name is required" }).min(1),
+  first_name: z.string().min(1, { error: "First Name is required" }),
+  last_name: z.string().min(1, { error: "Last Name is required" }),
   email: z.email({ error: "Invalid email" }),
-  subject: z.string({ error: "Subject is required" }).min(1),
-  message: z.string({ error: "Message is required" }),
+  subject: z.string().min(1, { error: "Subject is required" }),
+  message: z.string().min(1, { error: "Message is required" }),
 });
 
 const Contact = ({
@@ -52,11 +52,7 @@ const Contact = ({
   function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
+      toast.success("Message sent successfully");
     } catch (error) {
       console.error("Form submission error", error);
       toast.error("Failed to submit the form. Please try again.");

@@ -1,4 +1,3 @@
-import Contact from "../Contact/Contact";
 import Banner from "./Banner";
 import Feedbacks from "./Feedbacks";
 import HowItsWork from "./HowItsWork";
@@ -11,7 +10,6 @@ const Home = () => {
       <HowItsWork />
       <ServiceHighlight />
       <Feedbacks />
-      <Contact />
     </>
   );
 };
