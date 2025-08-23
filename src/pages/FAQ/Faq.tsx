@@ -20,13 +20,13 @@ const Faq = () => {
         <CommandInput placeholder="Search..." />
         <CommandList className="max-h-full">
           <CommandEmpty>No results found.</CommandEmpty>
-          <Accordion type="single">
+          <Accordion type="multiple">
             {faqs.map(({ group, items }) => (
               <>
                 <CommandGroup heading={group.toLocaleUpperCase()}>
                   {items.map(({ answer, id, question }) => (
                     <CommandItem key={id}>
-                      <AccordionItem value={id.toString()}>
+                      <AccordionItem className="w-full" value={id.toString()}>
                         <AccordionTrigger>{question}</AccordionTrigger>
                         <AccordionContent>{answer}</AccordionContent>
                       </AccordionItem>
@@ -44,12 +44,3 @@ const Faq = () => {
 };
 
 export default Faq;
-
-      // <Accordion type="single" collapsible>
-      //   {serviceHighlights.map(({ title, icon, description }, index) => (
-      //     <AccordionItem key={index} value={title}>
-      //       <AccordionTrigger>{title + icon}</AccordionTrigger>
-      //       <AccordionContent>{description}</AccordionContent>
-      //     </AccordionItem>
-      //   ))}
-      // </Accordion>;

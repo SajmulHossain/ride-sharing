@@ -3,6 +3,7 @@ import Contact from "@/pages/Contact/Contact";
 import Faq from "@/pages/FAQ/Faq";
 import Features from "@/pages/Feature/Features";
 import Home from "@/pages/Home/Home";
+import RequestRide from "@/pages/RequestRide/RequestRide";
 import type { INavLinks } from "@/types";
 
 export const navlinks: INavLinks[] = [
@@ -30,5 +31,10 @@ export const navlinks: INavLinks[] = [
         path: "/faq",
         label: "FAQ",
         Component: Faq
+    },
+    {
+        path: "/request-ride",
+        label: "Request Ride",
+        Component: RequestRide
     }
 ]

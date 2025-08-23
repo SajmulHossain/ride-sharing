@@ -32,7 +32,7 @@ const Feedbacks = () => {
                     <div className="flex items-center gap-4 grow">
                       <img
                         src={avatar}
-                        className="size-16 rounded-full outline-2 outline-primary"
+                        className="size-16 rounded-full outline-2 outline-primary outline-offset-2"
                         alt={`${name}'s avatar`}
                       />
                       <div>

@@ -1,6 +1,7 @@
 import Logo from "@/assets/logo/Logo";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
+import { Link } from "react-router";
 
 const Banner = () => {
   return (
@@ -20,22 +21,24 @@ const Banner = () => {
             </div>
             <div>
               <h1 className="mb-6 text-2xl font-bold tracking-tight text-pretty lg:text-5xl">
-                Build your next project with{" "}
-                <span className="text-primary">Blocks</span>
+                Go to your next destination safely with
+                <span className="text-primary"> Go Together</span>
               </h1>
               <p className="mx-auto max-w-3xl text-muted-foreground lg:text-xl">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Elig
-                doloremque mollitia fugiat omnis! Porro facilis quo animi
-                consequatur. Explicabo.
+                Discover a seamless way to travel with Go Together. Whether
+                you're commuting or exploring, we ensure safety, comfort, and
+                reliability every step of the way.
               </p>
             </div>
             <div className="mt-6 flex justify-center gap-3">
               <Button className="shadow-sm transition-shadow hover:shadow">
-                Get Started
+                Request Ride
               </Button>
-              <Button variant="outline" className="group">
-                Learn more{" "}
-                <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
+              <Button asChild variant="outline" className="group">
+                <Link to="/faq">
+                  Learn more{" "}
+                  <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
               </Button>
             </div>
           </div>
