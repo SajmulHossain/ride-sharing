@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
@@ -23,10 +24,13 @@ import {
   FormMessage,
 } from "./ui/form";
 import PasswordInput from "./ui/password-input";
+import type { ErrorResponse } from "@/types";
 
 const formSchema = z.object({
-  email: z.string({error: "Email is required"}),
-  password: z.string({error: "Password is required"}).min(8, { error: "Password must be 8 characters long" }),
+  email: z.string({ error: "Email is required" }),
+  password: z
+    .string({ error: "Password is required" })
+    .min(8, { error: "Password must be 8 characters long" }),
 });
 
 export function LoginForm({
@@ -41,17 +45,16 @@ export function LoginForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
+  const [login, { isLoading }] = useLoginMutation();
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const toastId = toast.loading("Checking Credintials");
     try {
-      console.log(values);
-      toast(
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      );
-    } catch (error) {
-      console.error("Form submission error", error);
-      toast.error("Failed to submit the form. Please try again.");
+      await login(values).unwrap();
+      toast.success("Logged in successfull", { id: toastId });
+    } catch (err: unknown) {
+      const error  = err as ErrorResponse;
+      toast.error(error?.data?.message || "Wrong credentials", { id: toastId });
     }
   }
 
@@ -66,7 +69,7 @@ export function LoginForm({
         </CardHeader>
         <CardContent>
           <Form {...form}>
-            <form id="login-form" onSubmit={form.handleSubmit(onSubmit)}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-6">
                 <FormField
                   control={form.control}
@@ -93,7 +96,7 @@ export function LoginForm({
                   />
                 </div>
                 <div className="flex flex-col gap-3">
-                  <Button form="login-form" type="submit" className="w-full">
+                  <Button disabled={isLoading} type="submit" className="w-full">
                     Login
                   </Button>
                   <Button type="button" variant="outline" className="w-full">
