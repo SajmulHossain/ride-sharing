@@ -15,35 +15,33 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router";
 import { toast } from "sonner";
 import z from "zod";
 import PasswordInput from "./ui/password-input";
-import { Link } from "react-router";
 
 const formSchema = z.object({
-  name: z.string().min(1),
-  email: z.string(),
-  role: z.string(),
-  password: z.string(),
+  name: z.string({error: "Name is required"}).min(3, {error: "Name must be atleast 3 characters"}),
+  email: z.string({error: "Email is required"}),
+  role: z.string({error: "Role is required"}),
+  password: z.string({error: "Password is required"}).min(8, { error: "Password must be 8 characters long" }),
 });
 
 export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-    const [showPassword, setShowPassword] = useState<boolean>(false);
     
       const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),

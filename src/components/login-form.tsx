@@ -25,8 +25,8 @@ import {
 import PasswordInput from "./ui/password-input";
 
 const formSchema = z.object({
-  email: z.email(),
-  password: z.string().min(8, { error: "Password must be 8 characters long" }),
+  email: z.string({error: "Email is required"}),
+  password: z.string({error: "Password is required"}).min(8, { error: "Password must be 8 characters long" }),
 });
 
 export function LoginForm({
