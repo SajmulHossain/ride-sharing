@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Link } from "react-router"
 
 export function LoginForm({
   className,
@@ -58,9 +59,9 @@ export function LoginForm({
             </div>
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
-              <a href="#" className="underline underline-offset-4">
-                Sign up
-              </a>
+              <Link to="/register" className="underline underline-offset-4">
+                Register
+              </Link>
             </div>
           </form>
         </CardContent>

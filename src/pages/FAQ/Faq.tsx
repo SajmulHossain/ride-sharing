@@ -2,14 +2,12 @@ import Heading from "@/components/Heading";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import {
   Command,
-  CommandDialog,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
-  CommandShortcut,
+  CommandSeparator
 } from "@/components/ui/command";
 import { faqs } from "@/constant/faq";
 

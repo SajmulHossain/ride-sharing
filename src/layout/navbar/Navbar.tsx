@@ -26,7 +26,9 @@ const Navbar = () => {
             >
               <Link to="/login">Login</Link>
             </Button>
-            <Button className="rounded-full">Register</Button>
+            <Button asChild className="rounded-full">
+              <Link to="/register">Register</Link>
+            </Button>
             {/* Mobile Menu */}
             <div className="md:hidden">
               <NavigationSheet />
