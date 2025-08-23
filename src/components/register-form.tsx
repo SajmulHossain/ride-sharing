@@ -32,43 +32,44 @@ import z from "zod";
 import PasswordInput from "./ui/password-input";
 
 const formSchema = z.object({
-  name: z.string({error: "Name is required"}).min(3, {error: "Name must be atleast 3 characters"}),
-  email: z.string({error: "Email is required"}),
-  role: z.string({error: "Role is required"}),
-  password: z.string({error: "Password is required"}).min(8, { error: "Password must be 8 characters long" }),
+  name: z
+    .string({ error: "Name is required" })
+    .min(3, { error: "Name must be atleast 3 characters" }),
+  email: z.email({ error: "Invalid email" }),
+  role: z.enum(["rider", "driver"], {error: "Please select your role"}),
+  password: z
+    .string({ error: "Password is required" })
+    .min(8, { error: "Password must be 8 characters long" }),
 });
 
 export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-    
-      const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-      });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      name: "",
+      password: "",
+    },
+  });
 
-        function onSubmit(values: z.infer<typeof formSchema>) {
-          try {
-            console.log(values);
-            toast(
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <code className="text-white">
-                  {JSON.stringify(values, null, 2)}
-                </code>
-              </pre>
-            );
-          } catch (error) {
-            console.error("Form submission error", error);
-            toast.error("Failed to submit the form. Please try again.");
-          }
-        }
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      console.log(values);
+    } catch (error) {
+      console.error("Form submission error", error);
+      toast.error("Failed to submit the form. Please try again.");
+    }
+  }
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle>Login to your account</CardTitle>
+          <CardTitle>Create an account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your info below to create your account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -140,16 +141,7 @@ export function RegisterForm({
                 <FormField
                   control={form.control}
                   name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <PasswordInput placeholder="Placeholder" {...field} />
-                      </FormControl>
-                      <FormDescription>Enter your password.</FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field }) => <PasswordInput {...field} />}
                 />
 
                 <div className="flex flex-col gap-3">

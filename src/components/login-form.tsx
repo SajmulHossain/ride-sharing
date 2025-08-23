@@ -89,30 +89,7 @@ export function LoginForm({
                   <FormField
                     control={form.control}
                     name="password"
-                    render={({ field }) => (
-                      <FormItem>
-                        <div className="flex items-center">
-                          <FormLabel>Password</FormLabel>
-                          <Link
-                            to="#"
-                            className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-                          >
-                            Forgot your password?
-                          </Link>
-                        </div>
-                        <FormControl>
-                          <PasswordInput
-                            placeholder="Password"
-                            required
-                            {...field}
-                          />
-                        </FormControl>
-                        <FormDescription>
-                          This is your public display name.
-                        </FormDescription>
-                        <FormMessage />
-                      </FormItem>
-                    )}
+                    render={({ field }) => <PasswordInput {...field} />}
                   />
                 </div>
                 <div className="flex flex-col gap-3">
