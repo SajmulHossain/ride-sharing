@@ -2,6 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { getRoutes } from "@/utils/getRoute";
+import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import {
@@ -9,12 +10,13 @@ import {
   Marker,
   Polyline,
   Popup,
-  TileLayer,
+  TileLayer
 } from "react-leaflet";
 import SearchLocation from "./SearchLocation";
+import GoToLocation from "./GoToLocation";
 
 const RequestRide = () => {
-  // const [currentLocation, setCurrentLocation] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState<number[] | undefined>(undefined);
   const [pickup, setPickup] = useState<any>(null);
   const [destination, setDestination] = useState<any>(null);
   const [route, setRoute] = useState<[number, number][]>([]);
@@ -38,7 +40,11 @@ const RequestRide = () => {
     <Card>
       <CardContent className="flex flex-col md:flex-row gap-12">
         <div className="space-y-6 flex-1">
-          <SearchLocation label="Pickup" onSelect={setPickup} />
+          <SearchLocation
+            setCurrentLocation={setCurrentLocation}
+            label="Pickup"
+            onSelect={setPickup}
+          />
           <SearchLocation label="Destination" onSelect={setDestination} />
           <Button type="button" className="w-full">
             Request Ride
@@ -47,21 +53,27 @@ const RequestRide = () => {
 
         <div className="flex-1">
           <MapContainer
-            center={[23.8103, 90.4125]}
+            center={(currentLocation as LatLngExpression) || [23.8103, 90.4125]}
             zoom={12}
             className="mt-6 h-[400px]"
           >
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
             {pickup && (
-              <Marker position={[pickup.lat, pickup.lng]}>
-                <Popup>Pickup: {pickup.place}</Popup>
-              </Marker>
+              <>
+                <Marker position={[pickup.lat, pickup.lng]}>
+                  <Popup>Pickup: {pickup.place}</Popup>
+                </Marker>
+                <GoToLocation location={pickup} />
+              </>
             )}
             {destination && (
-              <Marker position={[destination.lat, destination.lng]}>
-                <Popup>Destination: {destination.place}</Popup>
-              </Marker>
+              <>
+                <Marker position={[destination.lat, destination.lng]}>
+                  <Popup>Destination: {destination.place}</Popup>
+                </Marker>
+                <GoToLocation location={destination} />
+              </>
             )}
 
             {route.length > 0 && <Polyline positions={route} />}
