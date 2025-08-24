@@ -1,3 +1,5 @@
+import type { TRole } from "./role.type";
+
 interface IVehice {
   model: string;
   registration_no: string;
@@ -9,7 +11,7 @@ export interface IUser {
   email: string;
   password?: string;
   phone: string;
-  role: string;
+  role: TRole;
   isBlocked?: boolean;
 
   driverApprovalStatus: string;

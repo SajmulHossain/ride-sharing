@@ -5,7 +5,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { navlinks } from "@/constant/navlinks";
+import { navlinks } from "@/routes/navlinks";
 import { cn } from "@/lib/utils";
 import type { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import { NavLink } from "react-router";
