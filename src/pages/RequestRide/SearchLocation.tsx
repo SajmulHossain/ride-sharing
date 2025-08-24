@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
@@ -8,7 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { searchLocation } from "@/utils/searchLocation";
-import { LocationEditIcon } from "lucide-react";
+import { Loader, LocationEditIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -22,14 +23,15 @@ interface IProps {
 
 const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [locations, setLocations] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
   };
-
+console.log(loading);
   const handleFocus = () => {
     setOpen(true);
   };
@@ -37,14 +39,16 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
   useEffect(() => {
     const fetchLocation = async () => {
       if (query.length > 3) {
-        const places = await searchLocation(query);
-        console.log(places);
-        setResults(places);
+        // const places = await searchLocation(query);
+        // setLocations(places);
       } else {
-        setResults([]);
+        setLocations([]);
       }
+
+      setLoading(false);
     };
 
+          setLoading(true);
     const timeoutid = setTimeout(() => {
       fetchLocation();
     }, 2500);
@@ -59,7 +63,7 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
           location?.coords?.latitude,
           location?.coords?.longitude,
         ]);
-        
+
         onSelect({
           lat: location?.coords?.latitude,
           lng: location?.coords?.longitude,
@@ -78,7 +82,7 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
 
   const handleSelectLocation = (place: any) => {
     setQuery(place.display_name);
-    setResults([]);
+    setLocations([]);
     onSelect({
       place: place.display_name,
       lat: parseFloat(place.lat),
@@ -107,20 +111,33 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
                 </Button>
               )}
               <ul className="space-y-2 max-h-40 overflow-y-auto">
-                {results?.map((place, index) => (
-                  <li
-                    key={index}
-                    onClick={() => handleSelectLocation(place)}
-                  >
-                    <Alert variant="default">
-                      <LocationEditIcon />
-                      <AlertTitle>{place.display_place}</AlertTitle>
-                      <AlertDescription className="line-clamp-1">
-                        {place.display_name}
-                      </AlertDescription>
-                    </Alert>
+                {loading ? (
+                  <li className="grid place-items-center h-10">
+                    <Loader className="animate-spin" />
                   </li>
-                ))}
+                ) : !locations?.length ? (
+                  <li>
+                    <CardDescription className="text-center">
+                      Not found location
+                    </CardDescription>
+                  </li>
+                ) : (
+                  locations?.map((place, index) => (
+                    <li
+                      key={index}
+                      onClick={() => handleSelectLocation(place)}
+                      className="cursor-pointer"
+                    >
+                      <Alert variant="default">
+                        <LocationEditIcon />
+                        <AlertTitle>{place.display_place}</AlertTitle>
+                        <AlertDescription className="line-clamp-1">
+                          {place.display_name}
+                        </AlertDescription>
+                      </Alert>
+                    </li>
+                  ))
+                )}
               </ul>
             </div>
           </PopoverContent>

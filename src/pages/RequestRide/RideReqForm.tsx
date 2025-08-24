@@ -51,7 +51,7 @@ const RequestRide = () => {
           </Button>
         </div>
 
-        <div className="flex-1">
+        <div className="flex-1 z-0">
           <MapContainer
             center={(currentLocation as LatLngExpression) || [23.8103, 90.4125]}
             zoom={12}
