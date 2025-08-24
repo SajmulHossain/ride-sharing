@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { searchLocation } from "@/utils/searchLocation";
-import { Loader, LocationEditIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
+import { LoaderPinwheelIcon, LocationEditIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
 
 interface IProps {
@@ -26,14 +26,14 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
   const [locations, setLocations] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-  };
-console.log(loading);
-  const handleFocus = () => {
-    setOpen(true);
+    // if (value.length > 2) {
+    //   setOpen(true);
+    // }
   };
 
   useEffect(() => {
@@ -48,7 +48,7 @@ console.log(loading);
       setLoading(false);
     };
 
-          setLoading(true);
+    setLoading(true);
     const timeoutid = setTimeout(() => {
       fetchLocation();
     }, 2500);
@@ -91,58 +91,61 @@ console.log(loading);
   };
 
   return (
-    <div>
+    <div className="relative" ref={dropdownRef}>
       <label className="block font-semibold mb-1">{label}</label>
       <Input
         type="text"
         placeholder={`Search ${label}`}
         value={query}
         onChange={handleChange}
-        onFocus={handleFocus}
+        onFocus={() => setOpen(true)}
+        onBlur={() => setOpen(false)}
       />
-      <div>
-        <Popover open={open} onOpenChange={setOpen}>
-          <PopoverTrigger></PopoverTrigger>
-          <PopoverContent align="start" side="bottom">
-            <div className="w-full">
-              {label === "Pickup" && (
-                <Button className="mb-2 w-full" onClick={getCurrentLocation}>
-                  Current Location
-                </Button>
-              )}
-              <ul className="space-y-2 max-h-40 overflow-y-auto">
-                {loading ? (
-                  <li className="grid place-items-center h-10">
-                    <Loader className="animate-spin" />
-                  </li>
-                ) : !locations?.length ? (
-                  <li>
-                    <CardDescription className="text-center">
-                      Not found location
-                    </CardDescription>
-                  </li>
-                ) : (
-                  locations?.map((place, index) => (
-                    <li
-                      key={index}
-                      onClick={() => handleSelectLocation(place)}
-                      className="cursor-pointer"
-                    >
-                      <Alert variant="default">
-                        <LocationEditIcon />
-                        <AlertTitle>{place.display_place}</AlertTitle>
-                        <AlertDescription className="line-clamp-1">
-                          {place.display_name}
-                        </AlertDescription>
-                      </Alert>
-                    </li>
-                  ))
-                )}
-              </ul>
-            </div>
-          </PopoverContent>
-        </Popover>
-      </div>
+      <Card
+        className={cn(
+          "w-full absolute top-[120%] bg-background",
+          open
+            ? "opacity-100 pointer-events-auto z-50"
+            : "opacity-0 pointer-events-none"
+        )}
+      >
+        <CardContent>
+          {label === "Pickup" && (
+            <Button className="mb-2 w-full" onClick={getCurrentLocation}>
+              Current Location
+            </Button>
+          )}
+          <ul className="space-y-2 max-h-40 overflow-y-auto">
+            {loading ? (
+              <li className="grid place-items-center h-10">
+                <LoaderPinwheelIcon className="animate-spin" />
+              </li>
+            ) : !locations?.length ? (
+              <li>
+                <CardDescription className="text-center">
+                  Not found location
+                </CardDescription>
+              </li>
+            ) : (
+              locations?.map((place, index) => (
+                <li
+                  key={index}
+                  onClick={() => handleSelectLocation(place)}
+                  className="cursor-pointer"
+                >
+                  <Alert variant="default">
+                    <LocationEditIcon />
+                    <AlertTitle>{place.display_place}</AlertTitle>
+                    <AlertDescription className="line-clamp-1">
+                      {place.display_name}
+                    </AlertDescription>
+                  </Alert>
+                </li>
+              ))
+            )}
+          </ul>
+        </CardContent>
+      </Card>
     </div>
   );
 };
