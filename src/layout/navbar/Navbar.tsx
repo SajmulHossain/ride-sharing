@@ -1,22 +1,17 @@
-import { Button } from "@/components/ui/button";
-import { NavMenu } from "./nav-menu";
-import { NavigationSheet } from "./navigation-sheet";
 import Logo from "@/assets/logo/Logo";
 import { DarkModeToggler } from "@/components/DarkModeToggler";
+import Logout from "@/components/Logout";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  useGetMeQuery
+} from "@/redux/features/auth/auth.api";
 import { Link } from "react-router";
-import { authApi, useGetMeQuery, useLogoutMutation } from "@/redux/features/auth/auth.api";
-import { sendResponse } from "@/utils/sendResponse";
-import { useAppDispatch } from "@/redux/hook";
+import { NavMenu } from "./nav-menu";
+import { NavigationSheet } from "./navigation-sheet";
 
 const Navbar = () => {
-  const { data: user } = useGetMeQuery(undefined);
-  const [logout, { isLoading:isLoggingOut }] = useLogoutMutation();
-  const dispatch = useAppDispatch();
-
-  const handleLogout = async () => {
-    await sendResponse(() => logout(undefined), "Logout");
-    dispatch(authApi.util.resetApiState());
-  }
+  const { data: user, isLoading } = useGetMeQuery(undefined);
 
   return (
     <header className="sticky top-0 inset-x-4 bg-background border dark:border-slate-700/70 z-50">
@@ -29,7 +24,9 @@ const Navbar = () => {
 
           <div className="flex items-center gap-3">
             <DarkModeToggler />
-            {!user?.email ? (
+            {isLoading ? (
+              <Skeleton className="h-8 w-20"></Skeleton>
+            ) : !user?.email ? (
               <>
                 <Button
                   asChild
@@ -44,12 +41,15 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Button onClick={handleLogout} disabled={isLoggingOut} variant="outline">Logout</Button>
+              <Button asChild>
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+                <Logout className="hidden md:block" />
               </>
             )}
             {/* Mobile Menu */}
             <div className="md:hidden">
-              <NavigationSheet />
+              <NavigationSheet user={user} isLoading={isLoading} />
             </div>
           </div>
         </div>

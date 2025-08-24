@@ -3,14 +3,9 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { LoaderPinwheelIcon, LocationEditIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 interface IProps {
@@ -26,14 +21,10 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
   const [locations, setLocations] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const dropdownRef = useRef(null);
 
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setQuery(value);
-    // if (value.length > 2) {
-    //   setOpen(true);
-    // }
   };
 
   useEffect(() => {
@@ -91,15 +82,17 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div
+      className="relative"
+      onFocus={() => setOpen(true)}
+      onBlur={() => setOpen(false)}
+    >
       <label className="block font-semibold mb-1">{label}</label>
       <Input
         type="text"
-        placeholder={`Search ${label}`}
+        placeholder={`${label}`}
         value={query}
         onChange={handleChange}
-        onFocus={() => setOpen(true)}
-        onBlur={() => setOpen(false)}
       />
       <Card
         className={cn(
