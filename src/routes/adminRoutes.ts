@@ -1,8 +1,9 @@
-import Drivers from "@/pages/Dashboard/Admin/User/Drivers";
+import Drivers from "@/pages/Dashboard/Admin/User/Driver/Drivers";
 import Riders from "@/pages/Dashboard/Admin/User/Riders";
 import type { SidebarRouteType } from "@/types";
 import { withAuth } from "@/utils/withAuth";
 import { CarIcon } from "lucide-react";
+import { riderRoutes } from "./riderRoutes";
 
 export const adminRoutes: SidebarRouteType[] = [
   {
@@ -23,4 +24,5 @@ export const adminRoutes: SidebarRouteType[] = [
       },
     ],
   },
+  ...riderRoutes,
 ];

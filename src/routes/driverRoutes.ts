@@ -1,5 +1,6 @@
 import type { SidebarRouteType } from "@/types";
 import { BedIcon, HistoryIcon } from "lucide-react";
+import { riderRoutes } from "./riderRoutes";
 
 export const driverRoutes: SidebarRouteType[] = [
   {
@@ -15,4 +16,5 @@ export const driverRoutes: SidebarRouteType[] = [
       },
     ],
   },
+  ...riderRoutes,
 ];

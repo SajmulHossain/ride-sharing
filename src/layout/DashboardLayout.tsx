@@ -35,16 +35,21 @@ const DashboardLayout = () => {
             />
             <Breadcrumb>
               <BreadcrumbList>
-                {paths.map((path) => (
-                  <BreadcrumbItem key={path} className="hidden md:block">
-                    <BreadcrumbLink asChild>
-                      <Link to={`/${path}`} className="capitalize">
-                        {path}
-                      </Link>
-                    </BreadcrumbLink>
-                  </BreadcrumbItem>
-                ))}
-                <BreadcrumbSeparator className="hidden md:block" />
+                {paths.map(
+                  (path) =>
+                    path && (
+                      <>
+                        <BreadcrumbItem key={path} className="hidden md:block">
+                          <BreadcrumbLink asChild>
+                            <Link to={`${path === "dashboard" ? "" : path}`} className="capitalize">
+                              {path}
+                            </Link>
+                          </BreadcrumbLink>
+                        </BreadcrumbItem>
+                        <BreadcrumbSeparator className="hidden md:block" />
+                      </>
+                    )
+                )}
                 <BreadcrumbItem>
                   <BreadcrumbPage className="capitalize">
                     {!isLoading && user?.role}
