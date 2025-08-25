@@ -6,6 +6,7 @@ import Disabled from "@/pages/Disabled";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { navlinks } from "@/routes/navlinks";
 import { generateDashboardRoutes } from "@/utils/generateSidebarRoutes";
+import { withAuth } from "@/utils/withAuth";
 import { useRoutes } from "react-router";
 
 
@@ -17,7 +18,7 @@ const RouterWrapper = () => {
   const { data, isLoading } = useGetMeQuery(undefined);
   const role = data?.role;
   
-  const router = ([
+  const router = [
     {
       path: "/",
       Component: App,
@@ -25,7 +26,7 @@ const RouterWrapper = () => {
     },
     {
       path: "/dashboard",
-      Component: DashboardLayout,
+      Component: withAuth(DashboardLayout),
       children: !isLoading ? generateDashboardRoutes(role) : [],
     },
     {
@@ -40,7 +41,11 @@ const RouterWrapper = () => {
       path: "/disabled",
       Component: Disabled,
     },
-  ]);
+    {
+      path: "*",
+      element: <>Not found</>
+    }
+  ];
 
   return useRoutes(router)
 }

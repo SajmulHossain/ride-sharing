@@ -26,6 +26,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { sendResponse } from "@/utils/sendResponse";
+import { useAppDispatch } from "@/redux/hook";
 
 export function NavUser({
   user,
@@ -37,6 +40,13 @@ export function NavUser({
   };
 }) {
   const { isMobile } = useSidebar();
+  const [logout, { isLoading }] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async() => {
+      await sendResponse(() => logout(undefined), "Logout");
+      dispatch(authApi.util.resetApiState());
+  }
 
   return (
     <SidebarMenu>
@@ -103,7 +113,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem disabled={isLoading} onClick={handleLogout}>
               <LogOut />
               Log out
             </DropdownMenuItem>
