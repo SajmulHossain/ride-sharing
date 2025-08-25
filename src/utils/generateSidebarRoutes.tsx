@@ -1,7 +1,7 @@
 import { getNavs } from "./getNavs";
 
-export const generateDashboardRoutes = () => {
-  const navs = getNavs();
+export const generateDashboardRoutes = (role: string | undefined) => {
+  const navs = getNavs(role);
 
   return navs.flatMap((nav) =>
     nav.items.map((item) => ({

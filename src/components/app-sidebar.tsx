@@ -23,7 +23,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       name: user?.name,
       email: user?.email,
     },
-    navMain: getNavs(),
+    navMain: getNavs(user?.role),
     projects: [
       {
         name: "Design Engineering",

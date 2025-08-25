@@ -12,7 +12,7 @@ export const adminRoutes: SidebarRouteType[] = [
         items: [
           {
             title: "Drivers",
-            url: "/drivers",
+            url: "drivers",
             Component: Drivers
           },
           {

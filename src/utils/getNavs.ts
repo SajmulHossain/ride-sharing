@@ -1,33 +1,25 @@
 import { userRole } from "@/constant/userRole";
-import { store } from "@/redux/store";
 import { adminRoutes } from "@/routes/adminRoutes";
 import { driverRoutes } from "@/routes/driverRoutes";
 import { riderRoutes } from "@/routes/riderRoutes";
-import type { SidebarRouteType } from "@/types";
 
-export const getNavs = () => {
-    const states = store.getState();
-    const role = states.auth.role;
+export const getNavs = (role: string | undefined) => {
+    // const states = store.getState();
+    // const role = states.auth.role;
 
-    if (!states.auth.role) {
-      return [];
-    }
+    // if (!states.auth.role) {
+    //   return [];
+    // }
 
-    let navs: SidebarRouteType[] | [] = [];
+    // let navs: SidebarRouteType[] | [];
     switch (role) {
       case userRole.rider:
-        navs = riderRoutes;
-        break;
+        return riderRoutes;
       case userRole.driver:
-        navs = driverRoutes;
-        break;
+        return driverRoutes;
       case userRole.admin:
-        navs = adminRoutes;
-        break;
+        return adminRoutes;
       default:
-        navs = [];
-        break;
+        return [];
     }
-
-    return navs;
 }

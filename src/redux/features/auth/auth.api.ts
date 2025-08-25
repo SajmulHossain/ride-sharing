@@ -1,6 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
 import type { IUser, Response } from "@/types";
-import { setRole } from "./authSlice";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,14 +10,6 @@ export const authApi = baseApi.injectEndpoints({
       }),
       providesTags: ["USER"],
       transformResponse: (response: Response<IUser>) => response.data,
-      onQueryStarted:async (_, queryLifeCycleApi) => {
-        try {
-          const { data } = await queryLifeCycleApi.queryFulfilled;
-          queryLifeCycleApi.dispatch(setRole(data.role));
-        } catch {
-          // 
-        }
-      },
     }),
     register: builder.mutation({
       query: (data) => ({
@@ -45,4 +36,9 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetMeQuery, useLoginMutation, useRegisterMutation, useLogoutMutation } = authApi;
+export const {
+  useGetMeQuery,
+  useLoginMutation,
+  useRegisterMutation,
+  useLogoutMutation,
+} = authApi;

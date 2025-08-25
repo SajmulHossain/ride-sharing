@@ -10,7 +10,7 @@ export const riderRoutes: SidebarRouteType[] = [
     items: [
       {
         title: "History",
-        url: "/history",
+        url: "history",
         Component: HistoryIcon,
       },
     ],
