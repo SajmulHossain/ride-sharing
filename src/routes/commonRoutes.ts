@@ -1,3 +1,4 @@
+import ChangePassword from "@/pages/ChangePassword/ChangePassword";
 import Profile from "@/pages/profile-page/Profile";
 import type { SidebarRouteType } from "@/types";
 import { CreativeCommonsIcon } from "lucide-react";
@@ -14,6 +15,11 @@ export const commonRoutes: SidebarRouteType[] = [
         url: "profile",
         Component: Profile,
       },
+      {
+        title: "Change Password",
+        url: "change-password",
+        Component: ChangePassword
+      }
     ],
   }
 ];

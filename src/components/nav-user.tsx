@@ -97,7 +97,7 @@ export function NavUser({
                   <UserIcon />
                   Profile
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate("/dashboard/change-password")}>
                 <LockIcon />
                 Change Password
               </DropdownMenuItem>
