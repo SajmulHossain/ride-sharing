@@ -6,7 +6,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/components/ui/input";
 import {
   Form,
   FormControl,
@@ -16,6 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { registerZodSchema } from "@/constant/register.zodSchema";
 import { useUpdateUserMutation } from "@/redux/features/user/user.api";
 import type { IUser } from "@/types";
