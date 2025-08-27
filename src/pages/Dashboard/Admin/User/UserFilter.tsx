@@ -81,8 +81,9 @@ const UserFilter = ({ role }: { role: string }) => {
                 <SelectValue placeholder="Filter Status" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="approve">Approve</SelectItem>
-                <SelectItem value="suspend">Suspend</SelectItem>
+                <SelectItem value="approve">Approved</SelectItem>
+                <SelectItem value="suspend">Suspended</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
               </SelectContent>
             </Select>
           </>

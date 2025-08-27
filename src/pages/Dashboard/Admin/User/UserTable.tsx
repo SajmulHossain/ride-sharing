@@ -20,7 +20,12 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
           <TableHead className="w-[100px]">Name</TableHead>
           <TableHead>Email</TableHead>
           <TableHead>Status</TableHead>
-          {role === "driver" && <TableHead>Active</TableHead>}
+          {role === "driver" && (
+            <>
+              <TableHead>Model No</TableHead>
+              <TableHead>Reg No</TableHead> <TableHead>Active</TableHead>
+            </>
+          )}
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
       </TableHeader>
@@ -33,21 +38,32 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
             driverApprovalStatus,
             isDriverActive,
             isBlocked,
+            vehicleInfo,
           }) => (
             <TableRow key={_id}>
               <TableCell className="font-medium">{name}</TableCell>
               <TableCell>{email}</TableCell>
               {role === "driver" && (
-                <TableCell
-                  className={cn("capitalize", {
-                    "text-primary": driverApprovalStatus === "approve",
-                    "text-destructive": driverApprovalStatus === "suspend",
-                    "text-blue-700": driverApprovalStatus === "pending",
-                  })}
-                >
-                  {driverApprovalStatus}
-                  {driverApprovalStatus === "approve" ? "d" : driverApprovalStatus === 'suspend' ? 'ed' : ""}
-                </TableCell>
+                <>
+                  <TableCell
+                    className={cn("capitalize", {
+                      "text-primary": driverApprovalStatus === "approve",
+                      "text-destructive": driverApprovalStatus === "suspend",
+                      "text-blue-700": driverApprovalStatus === "pending",
+                    })}
+                  >
+                    {driverApprovalStatus}
+                    {driverApprovalStatus === "approve"
+                      ? "d"
+                      : driverApprovalStatus === "suspend"
+                      ? "ed"
+                      : ""}
+                  </TableCell>
+                  <TableCell>{vehicleInfo?.model || "Not provider"}</TableCell>
+                  <TableCell>
+                    {vehicleInfo?.registration_no || "Not provider"}
+                  </TableCell>
+                </>
               )}
               {role === "driver" ? (
                 <TableCell

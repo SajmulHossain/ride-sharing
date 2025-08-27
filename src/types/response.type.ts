@@ -4,7 +4,9 @@ export interface ErrorResponse {
     success: boolean;
     message: string;
     errorSources: IErrorSources[];
-    error: Error;
+    error: {
+      statusCode: number;
+    };
   };
 }
 
@@ -13,13 +15,16 @@ interface IErrorSources {
   message: string;
 }
 
-interface Error {
-  statusCode: number;
+export interface IMeta {
+  page: number;
+  limit: number;
+  totalPage: number;
+  total: number;
 }
 
-
 export interface Response<T> {
-  success: true,
-  message: string,
-  data: T
+  success: true;
+  message: string;
+  data: T;
+  meta?: IMeta;
 }

@@ -28,7 +28,7 @@ import { useRegisterMutation } from "@/redux/features/auth/auth.api";
 import { sendResponse } from "@/utils/sendResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import z from "zod";
 import PasswordInput from "./ui/password-input";
 
@@ -56,6 +56,10 @@ const formSchema = z.object({
       message:
         "Phone number must be valid for Bangladesh. Format: +8801XXXXXXXXX or 01XXXXXXXXX",
     }),
+  vehicleInfo: z.object({
+    model: z.string().optional(),
+    registration_no: z.string().optional(),
+  }),
 });
 
 export function RegisterForm({
@@ -69,15 +73,24 @@ export function RegisterForm({
       name: "",
       password: "",
       phone: "",
-      role: undefined
+      role: undefined,
+      vehicleInfo: {
+        model: "",
+        registration_no: "",
+      },
     },
   });
+  const [register, { isLoading }] = useRegisterMutation();
+  const { state } = useLocation();
+  const navigate = useNavigate();
 
-  const [register, {isLoading}] = useRegisterMutation();
-
- async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     await sendResponse(() => register(values), "Register");
+    navigate(state || "/");
   }
+
+  const roleValue = form.watch("role");
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
@@ -169,6 +182,43 @@ export function RegisterForm({
                     </FormItem>
                   )}
                 />
+
+                {roleValue === "driver" && (
+                  <>
+                    <FormField
+                      control={form.control}
+                      name="vehicleInfo.model"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Model</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Model Number" {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            This is your public display name.
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="vehicleInfo.registration_no"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Registration No</FormLabel>
+                          <FormControl>
+                            <Input placeholder="Registration No" {...field} />
+                          </FormControl>
+                          <FormDescription>
+                            This is your public display name.
+                          </FormDescription>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </>
+                )}
 
                 <FormField
                   control={form.control}

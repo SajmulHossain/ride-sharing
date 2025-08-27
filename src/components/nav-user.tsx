@@ -29,6 +29,7 @@ import {
 import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { sendResponse } from "@/utils/sendResponse";
 import { useAppDispatch } from "@/redux/hook";
+import { useNavigate } from "react-router";
 
 export function NavUser({
   user,
@@ -42,10 +43,12 @@ export function NavUser({
   const { isMobile } = useSidebar();
   const [logout, { isLoading }] = useLogoutMutation();
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = async() => {
       await sendResponse(() => logout(undefined), "Logout");
       dispatch(authApi.util.resetApiState());
+      navigate("/");
   }
 
   return (
