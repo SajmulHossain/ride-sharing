@@ -14,6 +14,7 @@ const UserFilter = ({ role }: { role: string }) => {
   const driverApprovalStatusValue =
     searchParams.get("driverApprovalStatus") || "";
   const searchValue = searchParams.get("search") || "";
+  const riderStatusValue = searchParams.get("riderStatus") || "";
 
   const handleClearFilter = () => {
     const params = new URLSearchParams(searchParams);
@@ -40,14 +41,18 @@ const UserFilter = ({ role }: { role: string }) => {
     const form = e.target as typeof e.target & {
       search: { value: string };
       driverApprovalStatus: { value: string };
+      riderStatus: { value: string };
     };
     const search = form.search.value || "";
-    const driverApprovalStatus = form.driverApprovalStatus.value || "";
+    const driverApprovalStatus = form.driverApprovalStatus?.value || "";
+    const riderStatus = form.riderStatus?.value || "";
 
     const params = new URLSearchParams(searchParams);
+    
     params.set("search", search);
-
+    params.set("riderStatus", riderStatus);
     params.set("driverApprovalStatus", driverApprovalStatus);
+
     setSearchParams(params);
   };
 
@@ -60,7 +65,7 @@ const UserFilter = ({ role }: { role: string }) => {
           //   onChange={handleSearch}
           name="search"
         />
-        {role === "driver" && (
+        {role === "driver" ? (
           <>
             <Select
               defaultValue={driverApprovalStatusValue}
@@ -76,7 +81,18 @@ const UserFilter = ({ role }: { role: string }) => {
               </SelectContent>
             </Select>
           </>
-        )}
+        ): <Select
+              defaultValue={riderStatusValue}
+              name="riderStatus"
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Filter Status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="blocked">Blocked</SelectItem>
+                <SelectItem value="unblocked">Unblock</SelectItem>
+              </SelectContent>
+            </Select>}
 
         <Button type="submit">Done</Button>
       <Button type="button" variant={"outline"} onClick={handleClearFilter}>

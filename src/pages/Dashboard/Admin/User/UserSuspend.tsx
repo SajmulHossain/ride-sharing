@@ -22,15 +22,24 @@ export default function UserSuspend({
   driverApprovalStatus: string;
   isBlockedRider: boolean | undefined;
 }) {
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">
+        <Button
+          variant={
+            driverApprovalStatus === "approve" || !isBlockedRider
+              ? "destructive"
+              : "default"
+          }
+        >
           {role === "driver"
             ? driverApprovalStatus
               ? "Suspend"
               : "Approve"
-            : ""}
+            : isBlockedRider
+            ? "Unblock"
+            : "Block"}
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -57,24 +66,14 @@ export default function UserSuspend({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button
-              variant={
-                role === "driver"
-                  ? driverApprovalStatus === "approve"
-                    ? "destructive"
-                    : "default"
-                  : isBlockedRider
-                  ? "destructive"
-                  : "destructive"
-              }
-            >
+            <Button>
               {role === "driver"
                 ? driverApprovalStatus === "approve"
                   ? "Suspend"
                   : "Approve"
                 : isBlockedRider
-                ? "Block"
-                : "Unblock"}
+                ? "Unblock"
+                : "Block"}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>
