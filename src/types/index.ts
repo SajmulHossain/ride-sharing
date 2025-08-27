@@ -4,5 +4,6 @@ export * from "./role.type";
 export * from "./response.type";
 export * from "./user.type";
 export * from "./sidebar.type";
+export * from "./history.type";
 
 

@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { getNavs } from "@/utils/getNavs";
+import { commonRoutes } from "@/routes/commonRoutes";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: user, isLoading, isError } = useGetMeQuery(undefined);
@@ -21,7 +22,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       name: user?.name,
       email: user?.email,
     },
-    navMain: getNavs(user?.role),
+    navMain: [...getNavs(user?.role), ...commonRoutes],
   };
 
   if (!isLoading && isError) {

@@ -151,8 +151,8 @@ export default function ProfileContent({ user }: { user: IUser | undefined }) {
                   />
                 </>
               )}
-              <Button disabled={isLoading} type="submit">Submit</Button>
             </div>
+              <Button className="mt-4 w-full md:w-fit" disabled={isLoading || !form.formState.isDirty} type="submit">Submit</Button>
           </form>
         </Form>
       </CardContent>

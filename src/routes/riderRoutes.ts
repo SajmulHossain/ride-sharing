@@ -1,5 +1,6 @@
+import History from "@/pages/Dashboard/History/History";
 import type { SidebarRouteType } from "@/types";
-import { BedIcon, HistoryIcon } from "lucide-react";
+import { BedIcon } from "lucide-react";
 
 export const riderRoutes: SidebarRouteType[] = [
   {
@@ -11,7 +12,7 @@ export const riderRoutes: SidebarRouteType[] = [
       {
         title: "History",
         url: "history",
-        Component: HistoryIcon,
+        Component: History,
       },
     ],
   },

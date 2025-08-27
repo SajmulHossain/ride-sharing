@@ -1,13 +1,13 @@
 import ChangePassword from "@/pages/ChangePassword/ChangePassword";
 import Profile from "@/pages/profile-page/Profile";
 import type { SidebarRouteType } from "@/types";
-import { CreativeCommonsIcon } from "lucide-react";
+import { LockKeyholeIcon } from "lucide-react";
 
 export const commonRoutes: SidebarRouteType[] = [
   {
-    title: "",
+    title: "Privacy and Security",
     url: "#",
-    icon: CreativeCommonsIcon,
+    icon: LockKeyholeIcon,
     isActive: true,
     items: [
       {
