@@ -12,18 +12,25 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { sendResponse } from "@/utils/sendResponse";
 
-export default function UserAction({
+export default function UserAction<T>({
   role,
   open,
   setOpen,
-  text
+  text,
+  fn,
 }: {
   role: string;
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  text: string
+  text: string;
+  fn: () => { unwrap: { (): Promise<T> } };
 }) {
+  const handleAction = async () => {
+    await sendResponse(() => fn(), text);
+  };
+
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
@@ -61,7 +68,7 @@ export default function UserAction({
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button className="capitalize">
+            <Button onClick={handleAction} className="capitalize">
               {text}
             </Button>
           </AlertDialogAction>

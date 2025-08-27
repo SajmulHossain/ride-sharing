@@ -20,6 +20,7 @@ const UserFilter = ({ role }: { role: string }) => {
     const params = new URLSearchParams(searchParams);
     params.delete("search");
     params.delete("driverApprovalStatus");
+    params.delete("riderStatus");
     setSearchParams(params);
   };
 
@@ -50,8 +51,12 @@ const UserFilter = ({ role }: { role: string }) => {
     const params = new URLSearchParams(searchParams);
     
     params.set("search", search);
-    params.set("riderStatus", riderStatus);
-    params.set("driverApprovalStatus", driverApprovalStatus);
+    if(role === 'rider') {
+      params.set("riderStatus", riderStatus);
+    }
+    if(role === 'driver') {
+      params.set("driverApprovalStatus", driverApprovalStatus);
+    }
 
     setSearchParams(params);
   };

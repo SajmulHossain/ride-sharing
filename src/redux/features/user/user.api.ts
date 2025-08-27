@@ -9,9 +9,31 @@ export const userApi = baseApi.injectEndpoints({
         method: "GET",
         params,
       }),
+      providesTags: ['USER'],
       transformResponse: (response: Response<IUser[]>) => response.data,
     }),
+    blockRider: builder.mutation({
+      query: (id) => ({
+        url: `/users/block/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: ["USER"]
+    }),
+    approveDriver: builder.mutation({
+      query: (id) => ({
+        url: `/drivers/approve/${id}`,
+        method: "PATCH",
+      })
+      ,invalidatesTags: ['USER']
+    })
+   ,suspendDriver: builder.mutation({
+      query: (id) => ({
+        url: `/drivers/suspend/${id}`,
+        method: "PATCH",
+      })
+      ,invalidatesTags: ['USER']
+    })
   }),
 });
 
-export const { useGetUsersQuery } = userApi;
+export const { useGetUsersQuery, useBlockRiderMutation, useApproveDriverMutation, useSuspendDriverMutation } = userApi;

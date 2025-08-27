@@ -50,7 +50,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <Logo />
+        <Logo hide />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />

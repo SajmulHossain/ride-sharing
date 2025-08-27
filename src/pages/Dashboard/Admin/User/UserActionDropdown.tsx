@@ -11,31 +11,49 @@ import type { TRole } from "@/types";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import UserAction from "./UserActions";
+import {
+  useApproveDriverMutation,
+  useBlockRiderMutation,
+  useSuspendDriverMutation,
+} from "@/redux/features/user/user.api";
 
 const UserActionDropdown = ({
   role,
   driverApprovalStatus,
   isBlockedRider,
+  id,
 }: {
   role: TRole;
   driverApprovalStatus: string;
   isBlockedRider: boolean | undefined;
+  id: string;
 }) => {
-    const [open, setOpen] = useState(false);
-    const [text, setText] = useState("");
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState("");
+  const [fn, setFn] = useState<() => { unwrap: () => Promise<unknown> }>(
+    () => ({
+      unwrap: async () => {},
+    })
+  );
+  const [block] = useBlockRiderMutation();
+  const [approve] = useApproveDriverMutation();
+  const [suspend] = useSuspendDriverMutation();
 
-    const handleApprove = () => {
-        setOpen(true);
-        setText("approve");
-    }
-    const handleSuspend = () => {
-        setOpen(true);
-         setText("suspend");
-    }
-    const handleUserBlock = () => {
-        setOpen(true);
-        setText(isBlockedRider ? "unblock" : "block")
-    }
+  const handleApprove = () => {
+    setOpen(true);
+    setText("approve");
+    setFn(() => () => approve(id));
+  };
+  const handleSuspend = () => {
+    setOpen(true);
+    setText("suspend");
+    setFn(() => () => suspend(id));
+  };
+  const handleUserBlock = () => {
+    setOpen(true);
+    setText(isBlockedRider ? "unblock" : "block");
+    setFn(() => () => block(id));
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer">
@@ -78,7 +96,13 @@ const UserActionDropdown = ({
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>
-      <UserAction text={text} open={open} setOpen={setOpen} role={role} />
+      <UserAction
+        fn={fn}
+        text={text}
+        open={open}
+        setOpen={setOpen}
+        role={role}
+      />
     </DropdownMenu>
   );
 };

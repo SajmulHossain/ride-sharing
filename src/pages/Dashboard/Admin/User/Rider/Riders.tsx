@@ -11,7 +11,7 @@ const Riders = () => {
   const { data, isLoading } = useGetUsersQuery({
     role: "rider",
     search,
-    isBlocked: riderStatus === "blocked" ? true : false,
+    isBlocked: riderStatus === "blocked" ? true : riderStatus === 'unblocked' ? false : undefined,
   });
 
   return (

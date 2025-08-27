@@ -46,7 +46,7 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
                   })}
                 >
                   {driverApprovalStatus}
-                  {driverApprovalStatus !== "pending" && "d"}
+                  {driverApprovalStatus === "approve" ? "d" : driverApprovalStatus === 'suspend' ? 'ed' : ""}
                 </TableCell>
               )}
               {role === "driver" ? (
@@ -79,6 +79,7 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
                   role={role as TRole}
                   driverApprovalStatus={driverApprovalStatus}
                   isBlockedRider={isBlocked}
+                  id={_id as string}
                 />
               </TableCell>
             </TableRow>
