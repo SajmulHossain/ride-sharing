@@ -1,18 +1,27 @@
 import Heading from "@/components/Heading";
-import { DataTableDemo } from "./DataTable";
-import { useGetDriversQuery } from "@/redux/features/user/user.api";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useGetDriversQuery } from "@/redux/features/user/user.api";
+import UserFilter from "../UserFilter";
+import UserTable from "../UserTable";
+import { useSearchParams } from "react-router";
 
 const Drivers = () => {
+  const [searchParams] = useSearchParams();
+  const driverApprovalStatus = searchParams.get("driverApprovalStatus") || "";
+  const search = searchParams.get("search") || "";
+
   const { data: drivers = [...Array(5)], isLoading } = useGetDriversQuery({
     role: "driver",
-    driverApprovalStatus: "approve",
+    driverApprovalStatus,
+    search
   });
-  console.log(drivers);
+
 
   return (
     <section className="section w-full">
       <Heading heading="Drivers" />
+      <UserFilter role="driver" />
+
       {isLoading ? (
         <div className="space-y-2 w-full">
           {drivers.map(() => (
@@ -20,7 +29,9 @@ const Drivers = () => {
           ))}
         </div>
       ) : (
-        <DataTableDemo data={drivers} />
+        <>
+          <UserTable data={drivers} role="driver" />
+        </>
       )}
     </section>
   );
