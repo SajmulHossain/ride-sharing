@@ -4,7 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { LoaderPinwheelIcon, LocationEditIcon } from "lucide-react";
+import { getLocationByCoords } from "@/utils/getLocByCoords";
+import { searchLocation } from "@/utils/searchLocation";
+import { CrossIcon, LoaderPinwheelIcon, LocationEditIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -30,8 +32,8 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
   useEffect(() => {
     const fetchLocation = async () => {
       if (query.length > 3) {
-        // const places = await searchLocation(query);
-        // setLocations(places);
+        const places = await searchLocation(query);
+        setLocations(places);
       } else {
         setLocations([]);
       }
@@ -47,18 +49,22 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
     return () => clearTimeout(timeoutid);
   }, [query]);
 
-  const getCurrentLocation = () => {
+  const getCurrentLocation =  () => {
     navigator.geolocation.getCurrentPosition(
-      (location) => {
+    async  (location) => {
+        const lat = location?.coords?.latitude
+        const lng = location?.coords?.longitude;
         setCurrentLocation!([
-          location?.coords?.latitude,
-          location?.coords?.longitude,
+          lat,
+          lng
         ]);
 
         onSelect({
-          lat: location?.coords?.latitude,
-          lng: location?.coords?.longitude,
+          lat, lng
         });
+
+        const res = await getLocationByCoords(lat, lng);
+        setQuery(res.display_name);
       },
       (error) => {
         setCurrentLocation!([]);
@@ -85,7 +91,6 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
     <div
       className="relative"
       onFocus={() => setOpen(true)}
-      onBlur={() => setOpen(false)}
     >
       <label className="block font-semibold mb-1">{label}</label>
       <Input
@@ -102,9 +107,9 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
             : "opacity-0 pointer-events-none"
         )}
       >
-        <CardContent>
+        <CardContent className="relative">
           {label === "Pickup" && (
-            <Button className="mb-2 w-full" onClick={getCurrentLocation}>
+            <Button className="mb-2 w-full mt-12" onClick={getCurrentLocation}>
               Current Location
             </Button>
           )}
@@ -137,6 +142,7 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
               ))
             )}
           </ul>
+          <Button onClick={() => setOpen(false)} variant={"destructive"} className="absolute -top-4 right-2"> <CrossIcon className="rotate-45" /> </Button>
         </CardContent>
       </Card>
     </div>
