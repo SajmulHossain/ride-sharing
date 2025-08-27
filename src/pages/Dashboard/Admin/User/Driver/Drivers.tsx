@@ -1,14 +1,14 @@
 import Heading from "@/components/Heading";
-import { useGetDriversQuery } from "@/redux/features/user/user.api";
+import { useGetUsersQuery } from "@/redux/features/user/user.api";
 import { useSearchParams } from "react-router";
 import Users from "../Users";
 
 const Drivers = () => {
   const [searchParams] = useSearchParams();
-  const driverApprovalStatus = searchParams.get("driverApprovalStatus") || "";
-  const search = searchParams.get("search") || "";
+  const driverApprovalStatus = searchParams.get("driverApprovalStatus") || undefined;
+  const search = searchParams.get("search") || undefined;
 
-  const { data, isLoading } = useGetDriversQuery({
+  const { data, isLoading } = useGetUsersQuery({
     role: "driver",
     driverApprovalStatus,
     search,

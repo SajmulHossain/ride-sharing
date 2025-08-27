@@ -8,8 +8,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
-import type { IUser } from "@/types";
-import UserSuspend from "./UserSuspend";
+import type { IUser, TRole } from "@/types";
+import UserActionDropdown from "./UserActionDropdown";
 
 const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
   return (
@@ -26,7 +26,8 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
       </TableHeader>
       <TableBody>
         {data.map(
-          ({_id,
+          ({
+            _id,
             name,
             email,
             driverApprovalStatus,
@@ -41,9 +42,11 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
                   className={cn("capitalize", {
                     "text-primary": driverApprovalStatus === "approve",
                     "text-destructive": driverApprovalStatus === "suspend",
+                    "text-blue-700": driverApprovalStatus === "pending",
                   })}
                 >
-                  {driverApprovalStatus}d
+                  {driverApprovalStatus}
+                  {driverApprovalStatus !== "pending" && "d"}
                 </TableCell>
               )}
               {role === "driver" ? (
@@ -66,8 +69,14 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
                 </TableCell>
               )}
               <TableCell className="text-right">
-                <UserSuspend
+                {/* <UserAction
                   role={role}
+                  driverApprovalStatus={driverApprovalStatus}
+                  isBlockedRider={isBlocked}
+                /> */}
+
+                <UserActionDropdown
+                  role={role as TRole}
                   driverApprovalStatus={driverApprovalStatus}
                   isBlockedRider={isBlocked}
                 />

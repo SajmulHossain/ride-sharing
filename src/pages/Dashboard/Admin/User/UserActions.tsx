@@ -13,20 +13,21 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-export default function UserSuspend({
+export default function UserAction({
   role,
-  driverApprovalStatus,
-  isBlockedRider,
+  open,
+  setOpen,
+  text
 }: {
   role: string;
-  driverApprovalStatus: string;
-  isBlockedRider: boolean | undefined;
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  text: string
 }) {
-
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button
+        {/* <Button
           variant={
             driverApprovalStatus === "approve" || !isBlockedRider
               ? "destructive"
@@ -40,7 +41,7 @@ export default function UserSuspend({
             : isBlockedRider
             ? "Unblock"
             : "Block"}
-        </Button>
+        </Button> */}
       </AlertDialogTrigger>
       <AlertDialogContent>
         <div className="flex flex-col gap-2 max-sm:items-center sm:flex-row sm:gap-4">
@@ -53,27 +54,15 @@ export default function UserSuspend({
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              {role === "driver"
-                ? driverApprovalStatus === "approve"
-                  ? "Are you sure you want suspend the driver?"
-                  : "Are you sure you want to approve the driver?"
-                : isBlockedRider
-                ? "Are you sure you want to unblock rider?"
-                : "Are you sure you want to block the rider"}
+              {`Are you sure? You want to ${text} the ${role}`}
             </AlertDialogDescription>
           </AlertDialogHeader>
         </div>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction asChild>
-            <Button>
-              {role === "driver"
-                ? driverApprovalStatus === "approve"
-                  ? "Suspend"
-                  : "Approve"
-                : isBlockedRider
-                ? "Unblock"
-                : "Block"}
+            <Button className="capitalize">
+              {text}
             </Button>
           </AlertDialogAction>
         </AlertDialogFooter>

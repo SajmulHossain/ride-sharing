@@ -3,7 +3,7 @@ import type { IUser, Response } from "@/types";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getDrivers: builder.query<IUser[], unknown>({
+    getUsers: builder.query<IUser[], unknown>({
       query: (params) => ({
         url: "/users",
         method: "GET",
@@ -14,4 +14,4 @@ export const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetDriversQuery } = userApi;
+export const { useGetUsersQuery } = userApi;

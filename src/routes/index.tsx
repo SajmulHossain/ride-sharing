@@ -3,6 +3,7 @@ import DashboardLayout from "@/layout/DashboardLayout";
 import Login from "@/pages/auths/Login";
 import Register from "@/pages/auths/Register";
 import Disabled from "@/pages/Disabled";
+import NotFound from "@/pages/NotFound";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { navlinks } from "@/routes/navlinks";
 import { generateDashboardRoutes } from "@/utils/generateSidebarRoutes";
@@ -43,7 +44,7 @@ const RouterWrapper = () => {
     },
     {
       path: "*",
-      element: <>Not found</>
+      element: <NotFound />
     }
   ];
 

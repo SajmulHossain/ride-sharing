@@ -1,14 +1,14 @@
 import Heading from "@/components/Heading";
-import Users from "../Users";
+import { useGetUsersQuery } from "@/redux/features/user/user.api";
 import { useSearchParams } from "react-router";
-import { useGetDriversQuery } from "@/redux/features/user/user.api";
+import Users from "../Users";
 
 const Riders = () => {
   const [searchParams] = useSearchParams();
-  const search = searchParams.get("search") || "";
-  const riderStatus = searchParams.get("riderStatus") || "";
+  const search = searchParams.get("search") || undefined;
+  const riderStatus = searchParams.get("riderStatus") || undefined;
 
-  const { data, isLoading } = useGetDriversQuery({
+  const { data, isLoading } = useGetUsersQuery({
     role: "rider",
     search,
     isBlocked: riderStatus === "blocked" ? true : false,
