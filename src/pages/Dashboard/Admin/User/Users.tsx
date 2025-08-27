@@ -15,6 +15,7 @@ const Users = ({
   role: TRole;
   meta: IMeta
 }) => {
+  console.log(users, meta);
   return (
     <div>
       <UserFilter role={role} />

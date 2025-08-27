@@ -15,6 +15,7 @@ const Drivers = () => {
     driverApprovalStatus,
     search,
     page,
+    fields: "_id"
   });
 
   return (

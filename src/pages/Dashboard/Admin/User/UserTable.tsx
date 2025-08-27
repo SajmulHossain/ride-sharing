@@ -19,6 +19,7 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
         <TableRow>
           <TableHead className="w-[100px]">Name</TableHead>
           <TableHead>Email</TableHead>
+          {role === "rider" && <TableHead>Phone</TableHead>}
           <TableHead>Status</TableHead>
           {role === "driver" && (
             <>
@@ -30,75 +31,88 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map(
-          ({
-            _id,
-            name,
-            email,
-            driverApprovalStatus,
-            isDriverActive,
-            isBlocked,
-            vehicleInfo,
-          }) => (
-            <TableRow key={_id}>
-              <TableCell className="font-medium">{name}</TableCell>
-              <TableCell>{email}</TableCell>
-              {role === "driver" && (
-                <>
+        {!data.length ? (
+          <TableCell
+            colSpan={role === "rider" ? 5 : 7}
+            className="text-center text-destructive font-semibold text-lg h-60"
+          >
+            No data found
+          </TableCell>
+        ) : (
+          data.map(
+            ({
+              _id,
+              name,
+              email,
+              driverApprovalStatus,
+              isDriverActive,
+              isBlocked,
+              vehicleInfo,
+              phone,
+            }) => (
+              <TableRow key={_id}>
+                <TableCell className="font-medium">{name}</TableCell>
+                <TableCell>{email}</TableCell>
+                {role === "driver" && (
+                  <>
+                    <TableCell
+                      className={cn("capitalize", {
+                        "text-primary": driverApprovalStatus === "approve",
+                        "text-destructive": driverApprovalStatus === "suspend",
+                        "text-blue-700": driverApprovalStatus === "pending",
+                      })}
+                    >
+                      {driverApprovalStatus}
+                      {driverApprovalStatus === "approve"
+                        ? "d"
+                        : driverApprovalStatus === "suspend"
+                        ? "ed"
+                        : ""}
+                    </TableCell>
+                    <TableCell>
+                      {vehicleInfo?.model || "Not provider"}
+                    </TableCell>
+                    <TableCell>
+                      {vehicleInfo?.registration_no || "Not provider"}
+                    </TableCell>
+                  </>
+                )}
+                {role === "rider" && <TableCell>{phone}</TableCell>}
+                {role === "driver" ? (
                   <TableCell
                     className={cn("capitalize", {
-                      "text-primary": driverApprovalStatus === "approve",
-                      "text-destructive": driverApprovalStatus === "suspend",
-                      "text-blue-700": driverApprovalStatus === "pending",
+                      "text-primary": isDriverActive,
+                      "text-destructive": !isDriverActive,
                     })}
                   >
-                    {driverApprovalStatus}
-                    {driverApprovalStatus === "approve"
-                      ? "d"
-                      : driverApprovalStatus === "suspend"
-                      ? "ed"
-                      : ""}
+                    {isDriverActive ? "Active" : "Inactive"}
                   </TableCell>
-                  <TableCell>{vehicleInfo?.model || "Not provider"}</TableCell>
-                  <TableCell>
-                    {vehicleInfo?.registration_no || "Not provider"}
+                ) : (
+                  <TableCell
+                    className={cn({
+                      "text-destructive": isBlocked,
+                      "text-green-600": !isBlocked,
+                    })}
+                  >
+                    {isBlocked ? "Blocked" : "Unblocked"}
                   </TableCell>
-                </>
-              )}
-              {role === "driver" ? (
-                <TableCell
-                  className={cn("capitalize", {
-                    "text-primary": isDriverActive,
-                    "text-destructive": !isDriverActive,
-                  })}
-                >
-                  {isDriverActive ? "Active" : "Inactive"}
-                </TableCell>
-              ) : (
-                <TableCell
-                  className={cn({
-                    "text-destructive": isBlocked,
-                    "text-green-600": !isBlocked,
-                  })}
-                >
-                  {isBlocked ? "Blocked" : "Unblocked"}
-                </TableCell>
-              )}
-              <TableCell className="text-right">
-                {/* <UserAction
+                )}
+                <TableCell className="text-right">
+                  {/* <UserAction
                   role={role}
                   driverApprovalStatus={driverApprovalStatus}
                   isBlockedRider={isBlocked}
                 /> */}
 
-                <UserActionDropdown
-                  role={role as TRole}
-                  driverApprovalStatus={driverApprovalStatus}
-                  isBlockedRider={isBlocked}
-                  id={_id as string}
-                />
-              </TableCell>
-            </TableRow>
+                  <UserActionDropdown
+                    role={role as TRole}
+                    driverApprovalStatus={driverApprovalStatus}
+                    isBlockedRider={isBlocked}
+                    id={_id as string}
+                  />
+                </TableCell>
+              </TableRow>
+            )
           )
         )}
       </TableBody>
