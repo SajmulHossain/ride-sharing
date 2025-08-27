@@ -10,6 +10,7 @@ import {
 import { cn } from "@/lib/utils";
 import type { IUser, TRole } from "@/types";
 import UserActionDropdown from "./UserActionDropdown";
+import { Fragment } from "react/jsx-runtime";
 
 const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
   return (
@@ -22,10 +23,10 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
           {role === "rider" && <TableHead>Phone</TableHead>}
           <TableHead>Status</TableHead>
           {role === "driver" && (
-            <>
+            <Fragment>
               <TableHead>Model No</TableHead>
               <TableHead>Reg No</TableHead> <TableHead>Active</TableHead>
-            </>
+            </Fragment>
           )}
           <TableHead className="text-right">Action</TableHead>
         </TableRow>
@@ -54,7 +55,7 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
                 <TableCell className="font-medium">{name}</TableCell>
                 <TableCell>{email}</TableCell>
                 {role === "driver" && (
-                  <>
+                  <Fragment>
                     <TableCell
                       className={cn("capitalize", {
                         "text-primary": driverApprovalStatus === "approve",
@@ -75,7 +76,7 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
                     <TableCell>
                       {vehicleInfo?.registration_no || "Not provider"}
                     </TableCell>
-                  </>
+                  </Fragment>
                 )}
                 {role === "rider" && <TableCell>{phone}</TableCell>}
                 {role === "driver" ? (

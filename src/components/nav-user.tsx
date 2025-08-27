@@ -1,13 +1,11 @@
 "use client";
 
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
+  LockIcon,
   LogOut,
-  Sparkles,
-  User2
+  User2,
+  UserIcon
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -27,8 +25,8 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { authApi, useLogoutMutation } from "@/redux/features/auth/auth.api";
-import { sendResponse } from "@/utils/sendResponse";
 import { useAppDispatch } from "@/redux/hook";
+import { sendResponse } from "@/utils/sendResponse";
 import { useNavigate } from "react-router";
 
 export function NavUser({
@@ -95,24 +93,13 @@ export function NavUser({
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <Sparkles />
-                Upgrade to Pro
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <BadgeCheck />
-                Account
+              <DropdownMenuItem className="cursor-pointer" onClick={() => navigate("/dashboard/profile")}>
+                  <UserIcon />
+                  Profile
               </DropdownMenuItem>
               <DropdownMenuItem>
-                <CreditCard />
-                Billing
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Bell />
-                Notifications
+                <LockIcon />
+                Change Password
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />

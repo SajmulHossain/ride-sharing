@@ -1,7 +1,8 @@
+import { commonRoutes } from "@/routes/commonRoutes";
 import { getNavs } from "./getNavs";
 
 export const generateDashboardRoutes = (role: string | undefined) => {
-  const navs = getNavs(role);
+  const navs =[...commonRoutes, ...getNavs(role)];
 
   return navs.flatMap((nav) =>
     nav.items.map((item) => ({

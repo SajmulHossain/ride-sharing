@@ -39,6 +39,14 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+    updateUser: builder.mutation({
+      query: ({ data, email }) => ({
+        url: `/users/update/${email}`,
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: ["USER"],
+    }),
   }),
 });
 
@@ -47,4 +55,5 @@ export const {
   useBlockRiderMutation,
   useApproveDriverMutation,
   useSuspendDriverMutation,
+  useUpdateUserMutation,
 } = userApi;
