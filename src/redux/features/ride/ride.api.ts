@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import type { IHistory, Response } from "@/types";
+import type { IHistory, IRide, Response } from "@/types";
 
 export const rideApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,9 +9,16 @@ export const rideApi = baseApi.injectEndpoints({
         method: "GET",
         params,
       }),
-    //   transformResponse: (response: Response<IHistory>) => response.data,
+      //   transformResponse: (response: Response<IHistory>) => response.data,
+    }),
+    getRides: builder.query<IRide[], unknown>({
+      query: () => ({
+        url: "/rides/me",
+        method: "GET",
+      }),
+      transformResponse: (response: Response<IRide[]>) => response.data
     }),
   }),
 });
 
-export const { useGetRideHistoryQuery } = rideApi;
+export const { useGetRideHistoryQuery, useGetRidesQuery } = rideApi;

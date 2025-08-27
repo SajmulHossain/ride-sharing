@@ -1,5 +1,4 @@
 import Heading from "@/components/Heading";
-import { Alert } from "@/components/ui/alert";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { useGetRideHistoryQuery } from "@/redux/features/ride/ride.api";
