@@ -40,32 +40,31 @@ const RequestRide = () => {
     };
     if (pickup && destination) {
       route();
+      const { amount, distance } = getDistance([
+        pickup?.lat,
+        pickup?.lng,
+        destination?.lat,
+        destination?.lng,
+      ]);
+      setAmount(amount);
+      setDistance(distance);
     }
-
-    const { amount, distance } = getDistance([
-      pickup.lat,
-      pickup.lng,
-      destination.lat,
-      destination.lng,
-    ]);
-    setAmount(amount);
-    setDistance(distance);
-    console.log(amount, distance);
   }, [pickup, destination]);
-
 
   const handleRequest = () => {};
 
   return (
     <Card>
       <CardContent className="flex flex-col md:flex-row gap-12">
-        <Alert className="w-fit">
-          <AlertDescription className="flex gap-4">
-            <p>Distance: {distance}m</p>
-            <SidebarSeparator orientation="vertical" />
-            <p>Amount: {amount} BDT</p>
-          </AlertDescription>
-        </Alert>
+        {pickup && destination && (
+          <Alert className="w-fit">
+            <AlertDescription className="flex gap-4">
+              <p>Distance: {distance}m</p>
+              <SidebarSeparator orientation="vertical" />
+              <p>Amount: {amount} BDT</p>
+            </AlertDescription>
+          </Alert>
+        )}
 
         <div className="space-y-6 flex-1">
           <SearchLocation
