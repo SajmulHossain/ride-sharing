@@ -58,8 +58,11 @@ export function LoginForm({
     //   toast.error(error?.data?.message || "Wrong credentials", { id: toastId });
     // }
 
-   await sendResponse(() => login(values), "Login");
-    navigate(state || "/");
+   await sendResponse(
+     () => login(values),
+     "Login",
+     () => navigate(state || "/")
+   );
   }
 
   return (
