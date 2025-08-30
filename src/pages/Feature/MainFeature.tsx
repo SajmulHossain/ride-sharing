@@ -1,17 +1,16 @@
-"use client";
-
 import { useIsMobile } from "@/hooks/use-mobile";
 import { AnimatePresence, motion } from "framer-motion";
 import { Briefcase, ChevronLeft, ChevronRight, Mail } from "lucide-react";
 import React from "react";
+import requestImage from '@/assets/images/features/request.jpg';
 
 const people = [
   {
     id: 1,
-    name: "Albert Einstein",
+    name: "Request Ride",
     role: "Theoretical Physicist",
     email: "einstein@example.com",
-    profile: undefined
+    profile: requestImage
   },
   {
     id: 2,
