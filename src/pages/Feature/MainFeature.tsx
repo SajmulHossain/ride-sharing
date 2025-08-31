@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Briefcase, ChevronLeft, ChevronRight, Mail } from "lucide-react";
 import React from "react";
 import requestImage from '@/assets/images/features/request.jpg';
+import acceptRide from '@/assets/images/features/accept ride.jpg';
 
 const people = [
   {
@@ -14,11 +15,10 @@ const people = [
   },
   {
     id: 2,
-    name: "Isaac Newton",
+    name: "Accept ride",
     role: "Physicist & Mathematician",
     email: "newton@example.com",
-    profile:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f7/Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg/1200px-Portrait_of_Sir_Isaac_Newton%2C_1689_%28brightened%29.jpg",
+    profile: acceptRide
   },
   {
     id: 3,
