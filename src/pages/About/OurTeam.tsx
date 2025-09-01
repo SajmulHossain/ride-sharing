@@ -7,8 +7,9 @@ import {
 } from "@/components/ui/card";
 import { teamMembers } from "@/constant/teams";
 import { useIsMobile } from "@/hooks/use-mobile";
-import React from "react";import { AnimatePresence, motion } from "framer-motion";
-import { Briefcase, ChevronLeft, ChevronRight, Mail } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
 
 const people = teamMembers;
 
@@ -137,8 +138,7 @@ const OurTeam = () => {
                   <span className="truncate">{people[activeIndex].role}</span>
                 </div>
                 <div className="flex items-center justify-center text-xs text-gray-500 dark:text-gray-500 mt-0.5">
-                  <Mail size={12} className="mr-1" />
-                  <span className="truncate">{people[activeIndex].role}</span>
+                  <span className="truncate">{people[activeIndex].bio}</span>
                 </div>
               </motion.div>
               <motion.div
