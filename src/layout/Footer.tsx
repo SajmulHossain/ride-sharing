@@ -29,13 +29,13 @@ const Footer = () => {
           </div>
 
           {/* Subscribe Newsletter */}
-          <div className="max-w-xs w-full">
+          {/* <div className="max-w-xs w-full">
             <h6 className="font-semibold">Stay up to date</h6>
             <form className="mt-6 flex items-center gap-2">
               <Input type="email" placeholder="Enter your email" />
               <Button>Subscribe</Button>
             </form>
-          </div>
+          </div> */}
         </div>
         <Separator />
         <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
