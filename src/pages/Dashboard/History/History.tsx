@@ -10,7 +10,7 @@ const History = () => {
   return (
     <section className="section">
       <Heading
-        heading="Ride History"
+        heading="Rides History"
         description="View all your previous rides and their details here."
       />
 
