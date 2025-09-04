@@ -2,17 +2,26 @@ import { useGetRequestedRideQuery } from "@/redux/features/ride/ride.api";
 
 const Ride = () => {
     const { data, isLoading } = useGetRequestedRideQuery(undefined);
-    console.log(data);
 
     if(isLoading) {
         return 
     }
+
+    const state = data?.status[data.status.length - 1]?.state
     
-  return (
-    <section className="section">
-      <h1>This is Ride component</h1>
-    </section>
-  );
+    switch (state) {
+        case "requested":
+            return <Requested />;
+    
+        default:
+            break;
+    }
 };
 
 export default Ride;
+
+const Requested = () => {
+    return (
+        <div>Requested</div>
+    )
+}
