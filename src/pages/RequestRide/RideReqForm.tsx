@@ -17,8 +17,14 @@ import {
 } from "react-leaflet";
 import GoToLocation from "./GoToLocation";
 import SearchLocation from "./SearchLocation";
+import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
+import { sendResponse } from "@/utils/sendResponse";
+import { useNavigate } from "react-router";
 
 const RequestRide = () => {
+  const [requestRide, { isLoading }] = useRequestRideMutation();
+  const navigate = useNavigate();
+
   const [currentLocation, setCurrentLocation] = useState<number[] | undefined>(
     undefined
   );
@@ -51,7 +57,23 @@ const RequestRide = () => {
     }
   }, [pickup, destination]);
 
-  const handleRequest = () => {};
+  const handleRequest = async () => {
+    const data = {
+      pickup: {
+        place_name: pickup.place,
+        coordinate: [pickup.lat, pickup.lng],
+      },
+      destination: {
+        place_name: destination.place,
+        coordinate: [destination.lat, destination.lng],
+      },
+    };
+    await sendResponse(
+      () => requestRide(data),
+      "Ride Request",
+      () => navigate("/ride")
+    );
+  };
 
   return (
     <Card>
@@ -73,7 +95,12 @@ const RequestRide = () => {
             onSelect={setPickup}
           />
           <SearchLocation label="Destination" onSelect={setDestination} />
-          <Button onClick={handleRequest} type="button" className="w-full">
+          <Button
+            disabled={isLoading || !(pickup && destination)}
+            onClick={handleRequest}
+            type="button"
+            className="w-full"
+          >
             Request Ride
           </Button>
         </div>

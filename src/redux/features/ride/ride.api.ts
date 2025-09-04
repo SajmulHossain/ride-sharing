@@ -16,9 +16,28 @@ export const rideApi = baseApi.injectEndpoints({
         url: "/rides/me",
         method: "GET",
       }),
-      transformResponse: (response: Response<IRide[]>) => response.data
+      transformResponse: (response: Response<IRide[]>) => response.data,
+    }),
+    requestRide: builder.mutation({
+      query: (data) => ({
+        url: "/rides/request",
+        data,
+        method: "POST",
+      }),
+    }),
+    getRequestedRide: builder.query<IRide, unknown>({
+      query: () => ({
+        url: "/rides/ride",
+        method: "GET",
+      }),
+      transformResponse: (response: Response<IRide>) => response.data
     }),
   }),
 });
 
-export const { useGetRideHistoryQuery, useGetRidesQuery } = rideApi;
+export const {
+  useGetRideHistoryQuery,
+  useGetRidesQuery,
+  useRequestRideMutation,
+  useGetRequestedRideQuery
+} = rideApi;

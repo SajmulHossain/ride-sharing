@@ -4,12 +4,12 @@ import Login from "@/pages/auths/Login";
 import Register from "@/pages/auths/Register";
 import Disabled from "@/pages/Disabled";
 import NotFound from "@/pages/NotFound";
+import Ride from "@/pages/Ride/Ride";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { navlinks } from "@/routes/navlinks";
 import { generateDashboardRoutes } from "@/utils/generateSidebarRoutes";
 import { withAuth } from "@/utils/withAuth";
 import { useRoutes } from "react-router";
-
 
 // const {role, isLoading} = store.getState().auth;
 // console.log(role);
@@ -18,12 +18,18 @@ import { useRoutes } from "react-router";
 const RouterWrapper = () => {
   const { data, isLoading } = useGetMeQuery(undefined);
   const role = data?.role;
-  
+
   const router = [
     {
       path: "/",
       Component: App,
-      children: navlinks,
+      children: [
+        ...navlinks,
+        {
+          path: "/ride",
+          Component: withAuth(Ride),
+        },
+      ],
     },
     {
       path: "/dashboard",
@@ -44,11 +50,11 @@ const RouterWrapper = () => {
     },
     {
       path: "*",
-      element: <NotFound />
-    }
+      element: <NotFound />,
+    },
   ];
 
-  return useRoutes(router)
-}
+  return useRoutes(router);
+};
 
 export default RouterWrapper;
