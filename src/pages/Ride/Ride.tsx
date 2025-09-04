@@ -1,3 +1,5 @@
+import Heading from "@/components/Heading";
+import { Card } from "@/components/ui/card";
 import { useGetRequestedRideQuery } from "@/redux/features/ride/ride.api";
 
 const Ride = () => {
@@ -11,7 +13,7 @@ const Ride = () => {
     
     switch (state) {
         case "requested":
-            return <Requested />;
+           return <Requested />;
     
         default:
             break;
@@ -22,6 +24,13 @@ export default Ride;
 
 const Requested = () => {
     return (
-        <div>Requested</div>
-    )
+      <section className="section">
+        <Card>
+          <Heading
+            heading="Requested"
+            description="Your ride request has been sent. Please wait for the driver to approve."
+          />
+        </Card>
+      </section>
+    );
 }
