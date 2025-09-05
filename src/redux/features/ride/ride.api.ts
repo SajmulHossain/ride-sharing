@@ -30,7 +30,14 @@ export const rideApi = baseApi.injectEndpoints({
         url: "/rides/ride",
         method: "GET",
       }),
-      transformResponse: (response: Response<IRide>) => response.data
+      transformResponse: (response: Response<IRide>) => response.data,
+    }),
+    updateRideStatus: builder.mutation({
+      query: ({ id, status }) => ({
+        url: `/${id}/status`,
+        method: "PATCH",
+        data: { status },
+      }),
     }),
   }),
 });
@@ -39,5 +46,6 @@ export const {
   useGetRideHistoryQuery,
   useGetRidesQuery,
   useRequestRideMutation,
-  useGetRequestedRideQuery
+  useGetRequestedRideQuery,
+  useUpdateRideStatusMutation
 } = rideApi;
