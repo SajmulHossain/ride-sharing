@@ -1,6 +1,7 @@
 import Heading from "@/components/Heading";
 import { Card } from "@/components/ui/card";
 import { useGetRequestedRideQuery } from "@/redux/features/ride/ride.api";
+import { Circle, FerrisWheelIcon, LoaderPinwheelIcon, LucideLoaderCircle, ShipWheel, SplineIcon } from "lucide-react";
 
 const Ride = () => {
     const { data, isLoading } = useGetRequestedRideQuery(undefined);
@@ -30,6 +31,10 @@ const Requested = () => {
             heading="Requested"
             description="Your ride request has been sent. Please wait for the driver to approve."
           />
+
+          <div className="grid place-items-center">
+            <LoaderPinwheelIcon className="animate-spin" />
+          </div>
         </Card>
       </section>
     );
