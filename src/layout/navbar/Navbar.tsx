@@ -9,6 +9,7 @@ import {
 import { Link } from "react-router";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
+import ActiveToggler from "@/components/DriverActiveToggler";
 
 const Navbar = () => {
   const { data: user, isLoading } = useGetMeQuery(undefined);
@@ -41,6 +42,7 @@ const Navbar = () => {
               </>
             ) : (
               <>
+              <ActiveToggler />
               <Button asChild>
                 <Link to="/dashboard">Dashboard</Link>
               </Button>
