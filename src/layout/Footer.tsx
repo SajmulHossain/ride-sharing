@@ -1,4 +1,6 @@
 import Logo from "@/assets/logo/Logo";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { navlinks } from "@/routes/navlinks";
 
@@ -13,7 +15,7 @@ const Footer = () => {
             <Logo />
 
             <ul className="mt-6 flex items-center gap-4 flex-wrap">
-              {navlinks.map(({ label, path }) => (
+              {navlinks.slice(0, -2).map(({ label, path }) => (
                 <li key={path}>
                   <Link
                     to={path}
@@ -25,15 +27,6 @@ const Footer = () => {
               ))}
             </ul>
           </div>
-
-          {/* Subscribe Newsletter */}
-          {/* <div className="max-w-xs w-full">
-            <h6 className="font-semibold">Stay up to date</h6>
-            <form className="mt-6 flex items-center gap-2">
-              <Input type="email" placeholder="Enter your email" />
-              <Button>Subscribe</Button>
-            </form>
-          </div> */}
         </div>
         <Separator />
         <div className="py-8 flex flex-col-reverse sm:flex-row items-center justify-between gap-x-2 gap-y-5 px-6 xl:px-0">
