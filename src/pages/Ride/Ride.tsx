@@ -7,8 +7,8 @@ import { LoaderPinwheelIcon } from "lucide-react";
 import { useNavigate } from "react-router";
 
 interface IProps {
-  id: string;
-  fn: () => void
+  fn: <T>() => { unwrap: { (): Promise<T> } };
+  isLoading: boolean;
 }
 
 const Ride = () => {
@@ -23,7 +23,9 @@ const Ride = () => {
     
     switch (state) {
         case "requested":
-           return <Requested fn={updateStatus} id={data?._id} />;
+           return (
+             <Requested isLoading={isUpdating} fn={() => updateStatus({ id: data?._id, status: "cancelled" })} />
+           );
     
         default:
             break;
@@ -32,10 +34,10 @@ const Ride = () => {
 
 export default Ride;
 
-const Requested = ({fn, id}: IProps) => {
+const Requested = ({ fn, isLoading }: IProps) => {
   const navigate = useNavigate();
   const handleCancelRide = async () => {
-    await sendResponse(() => fn({ id, status: "cancelled" }), "Ride cancel", () => navigate('/request-ride'));
+    await sendResponse(() => fn(), "Ride cancel", () => navigate('/request-ride'));
   }
     return (
       <section className="section">
@@ -47,7 +49,7 @@ const Requested = ({fn, id}: IProps) => {
 
           <div className="grid place-items-center">
             <LoaderPinwheelIcon className="animate-spin" />
-            <Button variant={"outline"} className="mt-8" onClick={handleCancelRide}>Cancel Ride</Button>
+            <Button disabled={isLoading} variant={"outline"} className="mt-8" onClick={handleCancelRide}>Cancel Ride</Button>
           </div>
         </Card>
       </section>
