@@ -32,11 +32,11 @@ const Banner = () => {
             </div>
             <div className="mt-6 flex justify-center gap-3">
               <Button className="shadow-sm transition-shadow hover:shadow">
-                Request Ride
+                <Link to="/request-ride">Get a ride</Link>
               </Button>
               <Button asChild variant="outline" className="group">
                 <Link to="/faq">
-                  Learn more{" "}
+                  Learn more
                   <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
                 </Link>
               </Button>

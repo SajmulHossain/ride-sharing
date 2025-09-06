@@ -59,12 +59,14 @@ const SearchLocation = ({ label, onSelect, setCurrentLocation }: IProps) => {
           lng
         ]);
 
-        onSelect({
-          lat, lng
-        });
-
+        
         const res = await getLocationByCoords(lat, lng);
         setQuery(res.display_name);
+        onSelect({
+          place: res.display_name,
+          lat,
+          lng,
+        });
       },
       (error) => {
         setCurrentLocation!([]);
