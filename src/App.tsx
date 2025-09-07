@@ -1,6 +1,7 @@
 import { Outlet } from "react-router";
 import MainLayout from "./layout/MainLayout";
 import SwitchRide from "./components/SwitchRide";
+import SOS from "./components/SOS";
 
 const App = () => {
   // const { isLoading } = useGetMeQuery(undefined);
@@ -15,6 +16,7 @@ const App = () => {
   return (
     <MainLayout>
       <SwitchRide />
+      <SOS />
       <Outlet />
     </MainLayout>
   );
