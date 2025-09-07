@@ -3,7 +3,7 @@ import { Button } from "./ui/button";
 
 const SOS = () => {
   return (
-    <Button variant={"destructive"} className="fixed bottom-4 right-6">
+    <Button title="Emergency" variant={"destructive"} className="fixed bottom-4 right-6">
       <CircleAlertIcon />
     </Button>
   );
