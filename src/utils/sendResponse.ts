@@ -18,6 +18,12 @@ export const sendResponse = async <T>(
     if (import.meta.env.DEV) {
       console.log(error);
     }
-    toast.error(err.data.message || `Failed to ${message}`, { id: toastId });
+    if(err.data.message === 'Zod Error' && err.data.errorSources.length) {
+      err.data.errorSources.map(e => {
+        toast.error(e.message, { id: toastId })
+      }) 
+    } else {
+      toast.error(err.data.message || `Failed to ${message}`, { id: toastId });
+    }
   }
 };
