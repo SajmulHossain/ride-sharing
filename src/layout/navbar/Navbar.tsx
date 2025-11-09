@@ -21,7 +21,7 @@ const Navbar = () => {
           <Logo />
 
           {/* Desktop Menu */}
-          <NavMenu className="hidden lg:block" />
+          <NavMenu className="hidden md:block" />
 
           <div className="flex items-center gap-3">
             <DarkModeToggler />
@@ -42,15 +42,17 @@ const Navbar = () => {
               </>
             ) : (
               <>
-              <ActiveToggler />
-              <Button asChild>
-                <Link to="/dashboard">Dashboard</Link>
-              </Button>
-                <Logout className="hidden md:block" />
+                <div className="hidden lg:block">
+                  <ActiveToggler />
+                </div>
+                <Button asChild>
+                  <Link to="/dashboard">Dashboard</Link>
+                </Button>
+                <Logout className="hidden lg:block" />
               </>
             )}
             {/* Mobile Menu */}
-            <div className="lg:hidden">
+            <div className="md:hidden">
               <NavigationSheet user={user} isLoading={isLoading} />
             </div>
           </div>

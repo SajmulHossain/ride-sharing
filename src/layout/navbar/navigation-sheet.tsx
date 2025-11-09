@@ -14,6 +14,7 @@ import { NavMenu } from "./nav-menu";
 import { Link } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import Logout from "@/components/Logout";
+import ActiveToggler from "@/components/DriverActiveToggler";
 
 export const NavigationSheet = ({
   user,
@@ -51,7 +52,10 @@ export const NavigationSheet = ({
           ) : (
             <>
               <Separator className="my-4" />
-              <Logout className="md:hidden w-full" />
+              <div className="mb-3 lg:hidden">
+                <ActiveToggler />
+              </div>
+              <Logout className="lg:hidden w-full" />
             </>
           )}
         </div>

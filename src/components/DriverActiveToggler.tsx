@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { useGetActiveStatusQuery, useToggleStatusMutation } from "@/redux/features/driver/driver.api";
 
-export default function ActiveToggler() {
+export default function ActiveToggler({...props}) {
   const id = useId();
   const [checked, setChecked] = useState(false);
   const { data } = useGetActiveStatusQuery(undefined);
@@ -24,7 +24,7 @@ export default function ActiveToggler() {
 
 
   return (
-    <div className="inline-flex items-center gap-2">
+    <div {...props} className="inline-flex items-center gap-2">
       <Label htmlFor={id} className="text-sm font-medium">
         {checked ? "ACTIVE" : "INACTIVE"}
       </Label>
