@@ -20,41 +20,28 @@ export const NavMenu = (props: NavigationMenuProps) =>{
   return (
     <NavigationMenu {...props}>
       <NavigationMenuList className="space-x-0 data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-start">
-        {!data || user?.role !== 'driver'
-          ? navlinks.map((link) => (
-              <NavigationMenuItem key={link.path} className="w-full md:w-fit">
-                <NavigationMenuLink
-                  asChild
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "aria-[current=page]:bg-primary w-full"
-                  )}
-                >
-                  <NavLink to={link.path} end={link.path === "/"}>
-                    {link.label}
-                  </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))
-          : [...navlinks.slice(0, -1), {
-              path: "/available-request",
-              label: "Available Request",
-              Component: AvailableRequest,
-            }].map((link) => (
-              <NavigationMenuItem key={link.path} className="w-full md:w-fit">
-                <NavigationMenuLink
-                  asChild
-                  className={cn(
-                    navigationMenuTriggerStyle(),
-                    "aria-[current=page]:bg-primary w-full"
-                  )}
-                >
-                  <NavLink to={link.path} end={link.path === "/"}>
-                    {link.label}
-                  </NavLink>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
+        {[
+          ...(data && user?.role === "driver" ? [...navlinks.slice(0, -1),
+          {
+            path: "/available-request",
+            label: "Available Request",
+            Component: AvailableRequest,
+          }] : navlinks),
+        ].map((link) => (
+          <NavigationMenuItem key={link.path} className="w-full md:w-fit">
+            <NavigationMenuLink
+              asChild
+              className={cn(
+                navigationMenuTriggerStyle(),
+                "aria-[current=page]:bg-primary w-full"
+              )}
+            >
+              <NavLink to={link.path} end={link.path === "/"}>
+                {link.label}
+              </NavLink>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+        ))}
       </NavigationMenuList>
     </NavigationMenu>
   );

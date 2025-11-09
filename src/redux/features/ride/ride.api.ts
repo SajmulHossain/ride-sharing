@@ -39,6 +39,13 @@ export const rideApi = baseApi.injectEndpoints({
         data: { status },
       }),
     }),
+    getAvailableRides: builder.query<IRide[], unknown>({
+      query: () => ({
+        url: "/rides/available-rides",
+        method: "GET",
+      }),
+      transformResponse: (response: Response<IRide[]>) => response.data
+    }),
   }),
 });
 
@@ -48,4 +55,5 @@ export const {
   useRequestRideMutation,
   useGetRequestedRideQuery,
   useUpdateRideStatusMutation,
+  useGetAvailableRidesQuery
 } = rideApi;
