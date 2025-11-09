@@ -1,4 +1,5 @@
 import { rideStatus } from "@/constant/rideStatus";
+import type { IUser } from "./user.type";
 
 type RideStatus = keyof typeof rideStatus;
 
@@ -15,7 +16,7 @@ export interface IDestination {
 
 export interface IRide {
   _id?: string;
-  rider: string;
+  rider: IUser;
   driver: string;
   pickup: IDestination;
   destination: IDestination;

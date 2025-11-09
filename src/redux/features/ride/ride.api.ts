@@ -39,7 +39,7 @@ export const rideApi = baseApi.injectEndpoints({
         data: { status },
       }),
     }),
-    getAvailableRides: builder.query<IRide[], unknown>({
+    getAvailableRides: builder.query<(IRide)[], unknown>({
       query: () => ({
         url: "/rides/available-rides",
         method: "GET",

@@ -1,15 +1,27 @@
 import Heading from "@/components/Heading";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { useGetActiveStatusQuery } from "@/redux/features/driver/driver.api";
 import { useGetAvailableRidesQuery } from "@/redux/features/ride/ride.api";
 import { format } from "date-fns";
+import { CarIcon, Home } from "lucide-react";
+import { Link } from "react-router";
 
 const AvailableRequest = () => {
   const { data, isLoading: isActive } = useGetActiveStatusQuery(undefined);
-  const { data:rides, isLoading } = useGetAvailableRidesQuery(undefined);
+  const { data: rides, isLoading } = useGetAvailableRidesQuery(undefined);
 
-  console.log(rides);
+if(isLoading) {
+    return <>Loading</>
+}
 
   if (!isActive && !data) {
     return (
@@ -22,38 +34,90 @@ const AvailableRequest = () => {
     );
   }
 
-  if(!rides || !rides.length) {
-    return <div>No data found</div>
+  if (!rides || !rides.length) {
+    return <div>No data found</div>;
   }
 
   return (
     <section className="section">
-      {rides.map(({pickup, destination, createdAt, status, amount, rider, driver, _id}) => (
-        <Card key={_id}>
-          <CardContent>
-            <p>From: {pickup.place_name}</p>
-            <p>To: {destination.place_name}</p>
+      <div className="space-y-4">
+        {rides?.map(
+          ({
+            pickup,
+            destination,
+            status,
+            amount,
+            rider,
+            _id,
+          }) => (
+            <Card key={_id}>
+              <CardContent>
+                <div className="flex justify-between gap-4">
+                  <Card className="w-full">
+                    <CardContent>
+                      <p className="flex items-center gap-2">
+                        <Home /> From: {pickup.place_name}
+                      </p>
+                      <p className="flex items-center gap-2">
+                        <CarIcon /> To: {destination.place_name}
+                      </p>
+                      <Separator className="mt-2" />
+                      <h2 className="mt-2 text-2xl font-medium">
+                        Amount: BDT {amount}
+                      </h2>
 
-            <h2 className="mt-2 text-2xl font-medium">Amount: BDT {amount}</h2>
-
-            <div className="flex flex-wrap gap-2 mt-4">
-              {status.map(({ state, createdAt }) => (
-                <div className="border rounded-2xl py-2 px-4">
-                  <p className="capitalize mb-2">{state}</p>
-                  <p>
-                    <Badge variant="secondary">
-                      {format(
-                        new Date(createdAt || new Date()),
-                        "MMMM d, yyyy 'at' h:mm a"
-                      )}
-                    </Badge>
-                  </p>
+                      <div className="flex flex-wrap gap-2 mt-4">
+                        {status.map(({ state, createdAt }) => (
+                          <div className="border rounded-2xl py-2 px-4">
+                            <p className="capitalize mb-2">{state}</p>
+                            <p>
+                              <Badge variant="secondary">
+                                {format(
+                                  new Date(createdAt || new Date()),
+                                  "MMMM d, yyyy 'at' h:mm a"
+                                )}
+                              </Badge>
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  <Card className="w-full">
+                    <CardHeader>
+                      <CardTitle className="text-xl">Rider</CardTitle>
+                    </CardHeader>
+                    <Separator />
+                    <CardContent>
+                      <h2 className="font-bold text-2xl">{rider.name}</h2>
+                      <CardDescription className="flex flex-col mt-2 justify-start">
+                        <Button
+                          className="w-fit p-0 h-fit"
+                          asChild
+                          variant={"link"}
+                        >
+                          <Link to={`tel:${rider.phone}`} className="italic">
+                            {rider.phone}
+                          </Link>
+                        </Button>
+                        <Button
+                          className="w-fit p-0 h-fit"
+                          asChild
+                          variant={"link"}
+                        >
+                          <Link to={`mailto:${rider.email}`} className="italic">
+                            {rider.email}
+                          </Link>
+                        </Button>
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+              </CardContent>
+            </Card>
+          )
+        )}
+      </div>
     </section>
   );
 };
