@@ -2,6 +2,7 @@ import App from "@/App";
 import DashboardLayout from "@/layout/DashboardLayout";
 import Login from "@/pages/auths/Login";
 import Register from "@/pages/auths/Register";
+import AvailableRequest from "@/pages/Available-Request/AvailableRequest";
 import Disabled from "@/pages/Disabled";
 import NotFound from "@/pages/NotFound";
 import Ride from "@/pages/Ride/Ride";
@@ -25,6 +26,11 @@ const RouterWrapper = () => {
       Component: App,
       children: [
         ...navlinks,
+        {
+          path: "/available-request",
+          label: "Available Request",
+          Component: AvailableRequest,
+        },
         {
           path: "/ride",
           Component: withAuth(Ride),

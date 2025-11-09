@@ -5,12 +5,13 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
-import { navlinks } from "@/routes/navlinks";
 import { cn } from "@/lib/utils";
+import AvailableRequest from "@/pages/Available-Request/AvailableRequest";
+import { useGetMeQuery } from "@/redux/features/auth/auth.api";
+import { useGetActiveStatusQuery } from "@/redux/features/driver/driver.api";
+import { navlinks } from "@/routes/navlinks";
 import type { NavigationMenuProps } from "@radix-ui/react-navigation-menu";
 import { NavLink } from "react-router";
-import { useGetActiveStatusQuery } from "@/redux/features/driver/driver.api";
-import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 
 export const NavMenu = (props: NavigationMenuProps) =>{
   const { data } = useGetActiveStatusQuery(undefined);
@@ -35,7 +36,11 @@ export const NavMenu = (props: NavigationMenuProps) =>{
                 </NavigationMenuLink>
               </NavigationMenuItem>
             ))
-          : navlinks.slice(0, -1).map((link) => (
+          : [...navlinks.slice(0, -1), {
+              path: "/available-request",
+              label: "Available Request",
+              Component: AvailableRequest,
+            }].map((link) => (
               <NavigationMenuItem key={link.path} className="w-full md:w-fit">
                 <NavigationMenuLink
                   asChild
