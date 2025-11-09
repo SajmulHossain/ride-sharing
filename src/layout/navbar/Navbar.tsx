@@ -1,5 +1,6 @@
 import Logo from "@/assets/logo/Logo";
 import { DarkModeToggler } from "@/components/DarkModeToggler";
+import ActiveToggler from "@/components/DriverActiveToggler";
 import Logout from "@/components/Logout";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,7 +10,6 @@ import {
 import { Link } from "react-router";
 import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
-import ActiveToggler from "@/components/DriverActiveToggler";
 
 const Navbar = () => {
   const { data: user, isLoading } = useGetMeQuery(undefined);

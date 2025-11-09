@@ -1,34 +1,50 @@
 import { useEffect, useId, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
-import { useGetActiveStatusQuery, useToggleStatusMutation } from "@/redux/features/driver/driver.api";
+import {
+  driverApi,
+  useGetActiveStatusQuery,
+  useToggleStatusMutation,
+} from "@/redux/features/driver/driver.api";
 import { sendResponse } from "@/utils/sendResponse";
+import { useAppDispatch } from "@/redux/hook";
 
-export default function ActiveToggler({...props}) {
+export default function ActiveToggler({ ...props }) {
   const id = useId();
   const [checked, setChecked] = useState(false);
   const { data } = useGetActiveStatusQuery(undefined);
   const [toggleStatus] = useToggleStatusMutation();
+  const dispatch = useAppDispatch();
 
   const handleActiveStatus = async () => {
-    setChecked(val => !val);
+    setChecked((val) => !val);
     try {
-     sendResponse(() => toggleStatus(undefined), 'Status Update');
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err :unknown) {
+      sendResponse(() => toggleStatus(undefined), "Status Update");
+      dispatch(driverApi.util.resetApiState());
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err: unknown) {
       setChecked(!checked);
     }
-  }
+  };
 
   useEffect(() => {
     setChecked(data || false);
-  },[data])
-
+  }, [data]);
 
   return (
     <div {...props} className="inline-flex items-center gap-2">
-      <Label htmlFor={id} className={`text-sm font-medium flex items-center ${checked ? 'text-green-600' : "text-red-600"}`}>
-        ACTIVE <span className={`size-2 rounded-full ${checked ? 'bg-green-600' : "bg-red-600"}`}></span>
+      <Label
+        htmlFor={id}
+        className={`text-sm font-medium flex items-center ${
+          checked ? "text-green-600" : "text-red-600"
+        }`}
+      >
+        ACTIVE{" "}
+        <span
+          className={`size-2 rounded-full ${
+            checked ? "bg-green-600" : "bg-red-600"
+          }`}
+        ></span>
       </Label>
       <Switch
         id={id}
