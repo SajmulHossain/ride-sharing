@@ -52,9 +52,11 @@ export const NavigationSheet = ({
           ) : (
             <>
               <Separator className="my-4" />
-              <div className="mb-3 lg:hidden">
-                <ActiveToggler />
-              </div>
+              {user.role === "driver" && (
+                <div className="mb-3 lg:hidden">
+                  <ActiveToggler />
+                </div>
+              )}
               <Logout className="lg:hidden w-full" />
             </>
           )}

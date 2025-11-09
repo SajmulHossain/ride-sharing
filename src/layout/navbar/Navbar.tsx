@@ -42,9 +42,11 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <div className="hidden lg:block">
-                  <ActiveToggler />
-                </div>
+                {user.role === "driver" && (
+                  <div className="hidden lg:block">
+                    <ActiveToggler />
+                  </div>
+                )}
                 <Button asChild>
                   <Link to="/dashboard">Dashboard</Link>
                 </Button>
@@ -52,7 +54,7 @@ const Navbar = () => {
               </>
             )}
             {/* Mobile Menu */}
-            <div className="md:hidden">
+            <div className="lg:hidden">
               <NavigationSheet user={user} isLoading={isLoading} />
             </div>
           </div>
