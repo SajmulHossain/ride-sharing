@@ -16,7 +16,7 @@ export interface IDestination {
 
 export interface IRide {
   _id?: string;
-  rider: IUser;
+  rider: IUser | string;
   driver: string;
   pickup: IDestination;
   destination: IDestination;
