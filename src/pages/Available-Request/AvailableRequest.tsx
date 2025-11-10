@@ -9,14 +9,18 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { rideStatus } from "@/constant/rideStatus";
 import { useGetActiveStatusQuery } from "@/redux/features/driver/driver.api";
-import { useGetAvailableRidesQuery } from "@/redux/features/ride/ride.api";
+import { useGetAvailableRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
+import { sendResponse } from "@/utils/sendResponse";
 import { format } from "date-fns";
 import { Link } from "react-router";
 
 const AvailableRequest = () => {
   const { data, isLoading: isActive } = useGetActiveStatusQuery(undefined);
   const { data: rides, isLoading } = useGetAvailableRidesQuery(undefined);
+
+  const [updateStatus, { isLoading: isUpdating}] = useUpdateRideStatusMutation();
 
   if (isLoading) {
     return <>Loading</>;
@@ -35,6 +39,10 @@ const AvailableRequest = () => {
 
   if (!rides || !rides.length) {
     return <div>No data found</div>;
+  }
+
+  const handleAcceptRide = (id: string) => {
+      sendResponse(()=> updateStatus({id, status: rideStatus.accepted}), 'Ride ' + rideStatus.accepted);
   }
 
   return (
@@ -82,9 +90,9 @@ const AvailableRequest = () => {
                     <CardTitle className="text-xl">Rider</CardTitle>
                   </CardHeader>
                   <Separator />
-                  <CardContent>
+                  <CardContent className="h-full flex flex-col justify-between">
                     <h2 className="font-bold text-2xl">{rider.name}</h2>
-                    <CardDescription className="flex flex-col mt-2 justify-start">
+                    <CardDescription className="flex flex-col mt-2 justify-start grow">
                       <Button
                         className="w-fit p-0 h-fit"
                         asChild
@@ -104,6 +112,7 @@ const AvailableRequest = () => {
                         </Link>
                       </Button>
                     </CardDescription>
+                    <Button disabled={isUpdating} className="mt-4" onClick={() => handleAcceptRide(_id as string)}>Accept Ride</Button>
                   </CardContent>
                 </Card>
               </div>
