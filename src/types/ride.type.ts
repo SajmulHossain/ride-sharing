@@ -16,7 +16,7 @@ export interface IDestination {
 
 export interface IRide {
   _id?: string;
-  rider: IUser | string;
+  rider: string;
   driver: string;
   pickup: IDestination;
   destination: IDestination;
@@ -26,3 +26,5 @@ export interface IRide {
   createdAt?: Date;
   updatedAt?: Date;
 }
+
+export type IRideWithUser = Omit<IRide, 'rider'> & { rider: IUser }
