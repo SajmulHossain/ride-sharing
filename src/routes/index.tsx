@@ -29,7 +29,7 @@ const RouterWrapper = () => {
         {
           path: "/available-request",
           label: "Available Request",
-          Component: AvailableRequest,
+          Component: withAuth(AvailableRequest),
         },
         {
           path: "/ride",

@@ -1,26 +1,23 @@
-import { useEffect, useId, useState } from "react";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import {
-  driverApi,
   useGetActiveStatusQuery,
-  useToggleStatusMutation,
+  useToggleStatusMutation
 } from "@/redux/features/driver/driver.api";
 import { sendResponse } from "@/utils/sendResponse";
-import { useAppDispatch } from "@/redux/hook";
+import { useEffect, useId, useState } from "react";
 
-export default function ActiveToggler({ ...props }) {
+export default function ActiveToggler({ refetch,...props }: {refetch: () => void}) {
   const id = useId();
   const [checked, setChecked] = useState(false);
   const { data } = useGetActiveStatusQuery(undefined);
   const [toggleStatus] = useToggleStatusMutation();
-  const dispatch = useAppDispatch();
 
   const handleActiveStatus = async () => {
     setChecked((val) => !val);
     try {
       sendResponse(() => toggleStatus(undefined), "Status Update");
-      dispatch(driverApi.util.resetApiState());
+      refetch();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err: unknown) {
       setChecked(!checked);

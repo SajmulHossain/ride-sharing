@@ -11,7 +11,8 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { rideStatus } from "@/constant/rideStatus";
 import { useGetActiveStatusQuery } from "@/redux/features/driver/driver.api";
-import { useGetAvailableRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
+import { rideApi, useGetAvailableRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
+import { useAppDispatch } from "@/redux/hook";
 import { sendResponse } from "@/utils/sendResponse";
 import { format } from "date-fns";
 import { Link } from "react-router";
@@ -19,6 +20,7 @@ import { Link } from "react-router";
 const AvailableRequest = () => {
   const { data, isLoading: isActive } = useGetActiveStatusQuery(undefined);
   const { data: rides, isLoading } = useGetAvailableRidesQuery(undefined);
+  const dispatch = useAppDispatch();
 
   const [updateStatus, { isLoading: isUpdating}] = useUpdateRideStatusMutation();
 
@@ -41,8 +43,10 @@ const AvailableRequest = () => {
     return <div>No data found</div>;
   }
 
-  const handleAcceptRide = (id: string) => {
-      sendResponse(()=> updateStatus({id, status: rideStatus.accepted}), 'Ride ' + rideStatus.accepted);
+  const handleAcceptRide = async (id: string) => {
+      await sendResponse(()=> updateStatus({id, status: rideStatus.accepted}), 'Ride ' + rideStatus.accepted);
+
+      dispatch(rideApi.util.resetApiState());
   }
 
   return (
