@@ -1,5 +1,5 @@
 import History from "@/pages/Dashboard/History/History";
-import Rides from "@/pages/Dashboard/Ride/Rides";
+import Rides from "@/pages/Dashboard/DashboardRides/DashboardRides";
 import type { SidebarRouteType } from "@/types";
 import { BedIcon } from "lucide-react";
 

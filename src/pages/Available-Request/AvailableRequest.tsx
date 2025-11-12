@@ -2,17 +2,16 @@ import Heading from "@/components/Heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { rideStatus } from "@/constant/rideStatus";
 import { useGetActiveStatusQuery } from "@/redux/features/driver/driver.api";
-import { rideApi, useGetAvailableRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
-import { useAppDispatch } from "@/redux/hook";
+import { useGetAvailableRidesQuery, useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
 import { sendResponse } from "@/utils/sendResponse";
 import { format } from "date-fns";
 import { Link } from "react-router";
@@ -20,7 +19,6 @@ import { Link } from "react-router";
 const AvailableRequest = () => {
   const { data, isLoading: isActive } = useGetActiveStatusQuery(undefined);
   const { data: rides, isLoading } = useGetAvailableRidesQuery(undefined);
-  const dispatch = useAppDispatch();
 
   const [updateStatus, { isLoading: isUpdating}] = useUpdateRideStatusMutation();
 
@@ -45,8 +43,6 @@ const AvailableRequest = () => {
 
   const handleAcceptRide = async (id: string) => {
       await sendResponse(()=> updateStatus({id, status: rideStatus.accepted}), 'Ride ' + rideStatus.accepted);
-
-      dispatch(rideApi.util.resetApiState());
   }
 
   return (

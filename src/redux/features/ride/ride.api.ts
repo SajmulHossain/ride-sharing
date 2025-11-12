@@ -29,7 +29,7 @@ export const rideApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/rides/ride",
         method: "GET",
-      }),
+      }),providesTags: ["RIDE"],
       transformResponse: (response: Response<IRide>) => response.data,
     }),
     updateRideStatus: builder.mutation({
@@ -38,12 +38,14 @@ export const rideApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: { status },
       }),
+      invalidatesTags: ["RIDE"]
     }),
     getAvailableRides: builder.query<(IRideWithUser)[], unknown>({
       query: () => ({
         url: "/rides/available-rides",
         method: "GET",
       }),
+      providesTags: ["RIDE"],
       transformResponse: (response: Response<IRideWithUser[]>) => response.data
     }),
     getCurrentRide: builder.query<IRideWithUser, unknown>({
@@ -51,6 +53,7 @@ export const rideApi = baseApi.injectEndpoints({
         url: "/rides/current",
         method: "GET"
       }),
+      providesTags: ["RIDE"],
       transformResponse: (res: Response<IRideWithUser>) => res.data
     })
   }),

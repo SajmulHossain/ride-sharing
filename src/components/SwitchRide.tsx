@@ -8,7 +8,7 @@ const SwitchRide = () => {
 
   if (!isLoading && data) {
     return (
-      <div title="Current Ride" className="fixed bottom-4 right-4 z-50">
+      <div title="Current Ride" className="fixed bottom-4 right-20 z-50">
         <Button asChild>
           <Link to="/ride">
             <BikeIcon />
