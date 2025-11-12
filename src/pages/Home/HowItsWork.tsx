@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/common/Heading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { workSteps } from "@/constant/howItWork";
 

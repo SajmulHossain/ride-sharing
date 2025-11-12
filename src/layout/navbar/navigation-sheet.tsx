@@ -14,7 +14,7 @@ import { NavMenu } from "./nav-menu";
 import { Link } from "react-router";
 import { Skeleton } from "@/components/ui/skeleton";
 import Logout from "@/components/Logout";
-import ActiveToggler from "@/components/DriverActiveToggler";
+import ActiveToggler from "@/components/common/DriverActiveToggler";
 
 export const NavigationSheet = ({
   user,

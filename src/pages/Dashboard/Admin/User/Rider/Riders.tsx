@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/common/Heading";
 import { useGetUsersQuery } from "@/redux/features/user/user.api";
 import { useSearchParams } from "react-router";
 import Users from "../Users";

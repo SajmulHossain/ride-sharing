@@ -1,5 +1,6 @@
-import CommonRide from "@/components/CommonRide";
-import Heading from "@/components/Heading";
+import CommonRide from "@/components/common/CommonRide";
+import Heading from "@/components/common/Heading";
+import NoData from "@/components/common/NoData";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import {
@@ -38,7 +39,9 @@ const Ride = () => {
 
   return (
     <section className="section">
-      <CommonRide ride={data as IRide} />
+      {
+        data ? <CommonRide ride={data as IRide} /> : <NoData />
+      }
     </section>
   );
 };

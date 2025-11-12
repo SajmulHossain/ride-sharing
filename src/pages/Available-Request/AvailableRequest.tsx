@@ -1,4 +1,4 @@
-import Heading from "@/components/Heading";
+import Heading from "@/components/common/Heading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {

@@ -1,5 +1,5 @@
-import CommonRide from "@/components/CommonRide";
-import Heading from "@/components/Heading";
+import CommonRide from "@/components/common/CommonRide";
+import Heading from "@/components/common/Heading";
 import { useGetRidesQuery } from "@/redux/features/ride/ride.api";
 
 const Rides = () => {

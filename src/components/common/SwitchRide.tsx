@@ -1,7 +1,7 @@
 import { useGetCurrentRideQuery } from "@/redux/features/ride/ride.api";
 import { BikeIcon } from "lucide-react";
 import { Link } from "react-router";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 
 const SwitchRide = () => {
   const { data, isLoading } = useGetCurrentRideQuery(undefined);

@@ -1,5 +1,5 @@
 import Mission from "./Mission";
-import Heading from "@/components/Heading";
+import Heading from "@/components/common/Heading";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Card, CardContent, CardDescription } from "@/components/ui/card";
 import { CheckCircle } from "lucide-react";

@@ -1,6 +1,6 @@
 import Logo from "@/assets/logo/Logo";
-import { DarkModeToggler } from "@/components/DarkModeToggler";
-import ActiveToggler from "@/components/DriverActiveToggler";
+import { DarkModeToggler } from "@/components/common/DarkModeToggler";
+import ActiveToggler from "@/components/common/DriverActiveToggler";
 import Logout from "@/components/Logout";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";

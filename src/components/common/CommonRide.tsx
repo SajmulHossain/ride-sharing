@@ -1,9 +1,9 @@
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
-import { Card, CardContent } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { Card, CardContent } from "../ui/card";
+import { Badge } from "../ui/badge";
 import { format } from "date-fns";
 import type { IRide } from "@/types";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import { rideStatus } from "@/constant/rideStatus";
 import { useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
 import { sendResponse } from "@/utils/sendResponse";
@@ -14,7 +14,7 @@ const CommonRide = ({ ride }: { ride: IRide }) => {
   const [updateStatus, { isLoading }] = useUpdateRideStatusMutation();
 
   const currentRideStatus = Object.values(rideStatus).splice(
-    ride.status.length,
+    ride?.status.length,
     1
   )[0];
 
@@ -24,21 +24,21 @@ const CommonRide = ({ ride }: { ride: IRide }) => {
       "Ride " + currentRideStatus
     );
   };
-
+  
   return (
     <Card>
       <CardContent>
         <Badge className="mb-2">
           {user?.email === rider ? "You was rider" : "You was driver"}
         </Badge>
-        <p>From: {pickup.place_name}</p>
-        <p>To: {destination.place_name}</p>
+        <p>From: {pickup?.place_name}</p>
+        <p>To: {destination?.place_name}</p>
 
         <h2 className="mt-2 text-2xl font-medium">Amount: BDT {amount}</h2>
 
         <div className="flex flex-wrap gap-2 mt-4">
-          {status.map(({ state, createdAt }) => (
-            <div className="border rounded-2xl py-2 px-4">
+          {status?.map(({ state, createdAt }, index) => (
+            <div key={index} className="border rounded-2xl py-2 px-4">
               <p className="capitalize mb-2">{state}</p>
               <p>
                 <Badge variant="secondary">
