@@ -5,6 +5,7 @@ import Register from "@/pages/auths/Register";
 import AvailableRequest from "@/pages/Available-Request/AvailableRequest";
 import Disabled from "@/pages/Disabled";
 import NotFound from "@/pages/NotFound";
+import Pending from "@/pages/Pending/Pending";
 import Ride from "@/pages/Ride/Ride";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
 import { navlinks } from "@/routes/navlinks";
@@ -35,6 +36,10 @@ const RouterWrapper = () => {
           path: "/ride",
           Component: withAuth(Ride),
         },
+        {
+          path: "/pending",
+          Component: withAuth(Pending)
+        }
       ],
     },
     {

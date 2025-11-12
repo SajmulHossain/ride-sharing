@@ -14,14 +14,19 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
+import { userRole } from "@/constant/userRole";
 import { useGetMeQuery } from "@/redux/features/auth/auth.api";
-import { Link, Outlet, useLocation } from "react-router";
+import { Link, Navigate, Outlet, useLocation } from "react-router";
 import { Fragment } from "react/jsx-runtime";
 
 const DashboardLayout = () => {
   const { data: user, isLoading } = useGetMeQuery(undefined);
   const { pathname } = useLocation();
   const paths = pathname.split("/");
+
+  if(user?.role === userRole.driver && user?.driverApprovalStatus === "pending") {
+    return <Navigate to="/pending" replace={true} />
+  }
 
   if(isLoading) {
     return (
