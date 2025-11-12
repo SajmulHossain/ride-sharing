@@ -8,14 +8,16 @@ export const driverApi = baseApi.injectEndpoints({
         url: "/drivers/status",
         method: "GET",
       }),
+      providesTags: ["DRIVER_ACTIVE"],
       transformResponse: (res: Response<boolean>) => res.data
     }),
     toggleStatus: builder.mutation({
         query: () => ({
             url: "/drivers/active",
             method: "PATCH",
-        })
-    })
+        }),
+        invalidatesTags: ["DRIVER_ACTIVE"]
+    }),
   }),
 });
 

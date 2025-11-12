@@ -12,8 +12,7 @@ import { NavMenu } from "./nav-menu";
 import { NavigationSheet } from "./navigation-sheet";
 
 const Navbar = () => {
-  const { data: user, isLoading, refetch } = useGetMeQuery(undefined);
-  console.log(user, isLoading);
+  const { data: user, isLoading } = useGetMeQuery(undefined);
 
   return (
     <header className="sticky top-0 inset-x-4 bg-background border dark:border-slate-700/70 z-50">
@@ -45,9 +44,10 @@ const Navbar = () => {
               <>
                 {user.role === "driver" && (
                   <div className="hidden lg:block">
-                    <ActiveToggler refetch={refetch} />
+                    <ActiveToggler />
                   </div>
                 )}
+
                 <Button asChild>
                   <Link to="/dashboard">Dashboard</Link>
                 </Button>

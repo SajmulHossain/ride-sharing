@@ -5,7 +5,6 @@ import { Button } from "./ui/button";
 
 const SwitchRide = () => {
   const { data, isLoading } = useGetCurrentRideQuery(undefined);
-  console.log(data);
 
   if (!isLoading && data) {
     return (

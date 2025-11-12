@@ -7,7 +7,7 @@ import {
 import { sendResponse } from "@/utils/sendResponse";
 import { useEffect, useId, useState } from "react";
 
-export default function ActiveToggler({ refetch,...props }: {refetch: () => void}) {
+export default function ActiveToggler({ ...props }) {
   const id = useId();
   const [checked, setChecked] = useState(false);
   const { data } = useGetActiveStatusQuery(undefined);
@@ -17,7 +17,6 @@ export default function ActiveToggler({ refetch,...props }: {refetch: () => void
     setChecked((val) => !val);
     try {
       sendResponse(() => toggleStatus(undefined), "Status Update");
-      refetch();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err: unknown) {
       setChecked(!checked);
