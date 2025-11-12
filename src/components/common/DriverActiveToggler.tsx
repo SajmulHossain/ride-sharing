@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import {
   useGetActiveStatusQuery,
   useToggleStatusMutation
 } from "@/redux/features/driver/driver.api";
-import { sendResponse } from "@/utils/sendResponse";
 import { useEffect, useId, useState } from "react";
+import { toast } from "sonner";
 
 export default function ActiveToggler({ ...props }) {
   const id = useId();
@@ -15,11 +16,13 @@ export default function ActiveToggler({ ...props }) {
 
   const handleActiveStatus = async () => {
     setChecked((val) => !val);
+    const toastId= toast.loading("Status Updating");
     try {
-      sendResponse(() => toggleStatus(undefined), "Status Update");
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (err: unknown) {
-      setChecked(!checked);
+      await toggleStatus(undefined).unwrap();
+      toast.success("Status updated successfully", {id: toastId});
+    } catch (err: any) {
+      setChecked(val => !val);
+      toast.error(err.data.message || `Failed to update status`, { id: toastId });
     }
   };
 
