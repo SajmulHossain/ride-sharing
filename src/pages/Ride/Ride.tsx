@@ -21,7 +21,7 @@ const Ride = () => {
   const { data, isLoading } = useGetRequestedRideQuery(undefined);
   const [updateStatus, { isLoading: isUpdating }] =
     useUpdateRideStatusMutation();
-    
+
   if (isLoading) {
     return;
   }
@@ -39,9 +39,14 @@ const Ride = () => {
 
   return (
     <section className="section">
-      {
-        data ? <CommonRide ride={data as IRide} /> : <NoData />
-      }
+      {data ? (
+        <CommonRide ride={data as IRide} />
+      ) : (
+        <>
+          <Heading heading="You are not in ride" />
+          <NoData />
+        </>
+      )}
     </section>
   );
 };
