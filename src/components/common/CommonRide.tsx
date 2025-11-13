@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { rideStatus } from "@/constant/rideStatus";
 import { useUpdateRideStatusMutation } from "@/redux/features/ride/ride.api";
 import { sendResponse } from "@/utils/sendResponse";
+import { userRole } from "@/constant/userRole";
 
 const CommonRide = ({ ride }: { ride: IRide }) => {
   const { data: user } = useGetMeQuery(undefined);
@@ -51,13 +52,15 @@ const CommonRide = ({ ride }: { ride: IRide }) => {
             </div>
           ))}
         </div>
-        <Button
-          disabled={isLoading}
-          onClick={handleUpdateStatus}
-          className="mt-4"
-        >
-          Change to <span className="capitalize">{currentRideStatus}</span>
-        </Button>
+        {user?.role === userRole.driver && (
+          <Button
+            disabled={isLoading}
+            onClick={handleUpdateStatus}
+            className="mt-4"
+          >
+            Change to <span className="capitalize">{currentRideStatus}</span>
+          </Button>
+        )}
       </CardContent>
     </Card>
   );

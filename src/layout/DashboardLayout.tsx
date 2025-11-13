@@ -25,7 +25,7 @@ const DashboardLayout = () => {
   const paths = pathname.split("/");
 
   if(user?.role === userRole.driver && user?.driverApprovalStatus === "pending") {
-    return <Navigate to="/pending" replace={true} />
+    return <Navigate to="/pending" />
   }
 
   if(isLoading) {
