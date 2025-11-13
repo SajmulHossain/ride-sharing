@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import type { IRide, Response } from "@/types";
+import type { IEarning, IRide, Response } from "@/types";
 
 export const driverApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -18,6 +18,18 @@ export const driverApi = baseApi.injectEndpoints({
       }),
       transformResponse: (res: Response<IRide[]>) => res.data,
     }),
+    getDriverEarning: builder.query<
+      { totalIncome: number; history: IEarning[] },
+      unknown
+    >({
+      query: () => ({
+        url: "/drivers/earning",
+        method: "GET",
+      }),
+      transformResponse: (
+        res: Response<{ totalIncome: number; history: IEarning[] }>
+      ) => res.data,
+    }),
     toggleStatus: builder.mutation({
       query: () => ({
         url: "/drivers/active",
@@ -28,4 +40,4 @@ export const driverApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetActiveStatusQuery, useToggleStatusMutation, useGetDriverHistoryQuery } = driverApi;
+export const { useGetActiveStatusQuery, useToggleStatusMutation, useGetDriverHistoryQuery, useGetDriverEarningQuery } = driverApi;
