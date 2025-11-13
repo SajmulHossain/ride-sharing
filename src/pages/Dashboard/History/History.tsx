@@ -23,7 +23,6 @@ const History = () => {
 
       {data?.data?.history.length ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {" "}
           {data?.data?.history?.map(({ from, to }) => (
             <Card>
               <CardContent>

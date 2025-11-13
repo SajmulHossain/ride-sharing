@@ -20,6 +20,10 @@ export const driverRoutes: SidebarRouteType[] = [
         title: "Earnings",
         url: "earnings",
         Component: Earning
+      },
+      {
+        title: "Update Vehicle Information",
+        url: "profile",
       }
     ],
   },

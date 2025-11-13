@@ -1,5 +1,6 @@
 import CommonRide from "@/components/common/CommonRide";
 import Heading from "@/components/common/Heading";
+import NoData from "@/components/common/NoData";
 import { useGetRidesQuery } from "@/redux/features/ride/ride.api";
 
 const Rides = () => {
@@ -12,11 +13,15 @@ const Rides = () => {
         description="View and manage all your rides in one place."
       />
 
-      <div className="space-y-4">
-        {rides?.map((ride) => (
-          <CommonRide ride={ride} key={ride._id} />
-        ))}
-      </div>
+      {rides?.length ? (
+        <div className="space-y-4">
+          {rides?.map((ride) => (
+            <CommonRide ride={ride} key={ride._id} />
+          ))}
+        </div>
+      ) : (
+        <NoData />
+      )}
     </section>
   );
 };

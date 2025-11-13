@@ -16,7 +16,7 @@ export default function ProfileHeader({ user }: { user: IUser | undefined }) {
                 src="https://bundui-images.netlify.app/avatars/08.png"
                 alt="Profile"
               />
-              <AvatarFallback className="text-2xl">JD</AvatarFallback>
+              <AvatarFallback className="text-2xl">{user?.name.split(" ").map(d => d.charAt(0))}</AvatarFallback>
             </Avatar>
           </div>
           <div className="flex-1 space-y-2">
