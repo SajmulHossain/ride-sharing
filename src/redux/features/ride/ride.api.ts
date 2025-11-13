@@ -55,6 +55,14 @@ export const rideApi = baseApi.injectEndpoints({
       }),
       providesTags: ["RIDE"],
       transformResponse: (res: Response<IRideWithUser>) => res.data
+    }),
+    getAllRides: builder.query({
+      query: (params) => ({
+        url: "/rides/all-rides",
+        method: "GET",
+        params
+      }),
+      transformResponse: (res: Response<IRide[]>) => ({rides: res.data, meta: res?.meta})
     })
   }),
 });
@@ -66,5 +74,6 @@ export const {
   useGetRequestedRideQuery,
   useUpdateRideStatusMutation,
   useGetAvailableRidesQuery,
-  useGetCurrentRideQuery
+  useGetCurrentRideQuery,
+  useGetAllRidesQuery
 } = rideApi;

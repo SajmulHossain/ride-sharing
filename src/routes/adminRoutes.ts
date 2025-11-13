@@ -1,10 +1,11 @@
+import AdminAnalytics from "@/pages/Dashboard/Admin/User/AdminAnalytics";
 import Drivers from "@/pages/Dashboard/Admin/User/Driver/Drivers";
 import Riders from "@/pages/Dashboard/Admin/User/Rider/Riders";
 import type { SidebarRouteType } from "@/types";
 import { withAuth } from "@/utils/withAuth";
-import { CalculatorIcon, CarIcon } from "lucide-react";
+import { CalculatorIcon, CarIcon, UserIcon } from "lucide-react";
 import { riderRoutes } from "./riderRoutes";
-import AdminAnalytics from "@/pages/Dashboard/Admin/User/AdminAnalytics";
+import AdminRides from "@/pages/Dashboard/Admin/Rides/AdminRides";
 
 export const adminRoutes: SidebarRouteType[] = [
   {
@@ -23,7 +24,7 @@ export const adminRoutes: SidebarRouteType[] = [
   {
     title: "User Management",
     url: "#",
-    icon: CarIcon,
+    icon: UserIcon,
     isActive: true,
     items: [
       {
@@ -35,6 +36,19 @@ export const adminRoutes: SidebarRouteType[] = [
         title: "Riders",
         url: "riders",
         Component: withAuth(Riders),
+      },
+    ],
+  },
+  {
+    title: "Ride Management",
+    url: "#",
+    icon: CarIcon,
+    isActive: true,
+    items: [
+      {
+        title: "All Rides",
+        url: "all-rides",
+        Component: withAuth(AdminRides),
       },
     ],
   },
