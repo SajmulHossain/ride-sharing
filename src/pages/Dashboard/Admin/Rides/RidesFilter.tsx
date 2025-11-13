@@ -13,7 +13,7 @@ import { useSearchParams } from "react-router";
 const RidesFilter = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const status = searchParams.get("status") || "";
-  const searchValue = searchParams.get("search") || "";
+  const search = searchParams.get("search") || "";
 
   const handleClearFilter = () => {
     const params = new URLSearchParams(searchParams);
@@ -30,12 +30,11 @@ const RidesFilter = () => {
       status: { value: string };
     };
 
-    const search = form?.search?.value || "";
-    const status = form?.status?.value || "";
-
+    const searchTerm = form?.search?.value || search;
+    const statusTerm = form?.status?.value || status
     const params = new URLSearchParams(searchParams);
-    params.set("status", status);
-    params.set("search", search);
+    params.set("status", statusTerm);
+    params.set("search", searchTerm);
 
     setSearchParams(params);
   };
@@ -43,22 +42,25 @@ const RidesFilter = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex gap-4">
-        <Input
-          placeholder="Search"
-          defaultValue={searchValue}
-          name="search"
-        />
-        <Select
-          defaultValue={status}
-          name="status"
-        >
+        <Input placeholder="Search" defaultValue={search} name="search" />
+        <Select defaultValue={status} name="status">
           <SelectTrigger value="" className="w-[180px]">
             <SelectValue placeholder="Filter Status" />
           </SelectTrigger>
           <SelectContent>
-            {Object.values(rideStatus).map((status) => (
-              <SelectItem value={status} key={status} className="capitalize">{status}</SelectItem>
-            ))}
+            {["All", ...Object.values(rideStatus)].map(
+              (status) =>
+                (status === rideStatus.completed ||
+                status === rideStatus.cancelled) && (
+                  <SelectItem
+                    value={status}
+                    key={status}
+                    className="capitalize"
+                  >
+                    {status}
+                  </SelectItem>
+                )
+            )}
           </SelectContent>
         </Select>
 
