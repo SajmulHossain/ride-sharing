@@ -1,18 +1,19 @@
 import Heading from "@/components/common/Heading";
-import NoData from "@/components/common/NoData";
+import Pagination from "@/components/Pagination";
 import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
 } from "@/components/ui/table";
 import { useGetAllRidesQuery } from "@/redux/features/ride/ride.api";
-import RideTableRow from "./RideTableRow";
+import type { IMeta } from "@/types";
 import { useSearchParams } from "react-router";
 import RidesFilter from "./RidesFilter";
+import RideTableRow from "./RideTableRow";
 
 const AdminRides = () => {
   const [searchParams] = useSearchParams();
@@ -28,13 +29,13 @@ const AdminRides = () => {
   const { meta, rides } = data || {};
 
   return (
-    <section className="section">
+    <section className="section overflow-hidden">
       <Heading heading="All Rides" description="All rides here..." />
 
       <RidesFilter />
 
-      <div className="overflow-x-hidden">
-        <Table className="mt-6 overflow-x-auto">
+      <div>
+        <Table className="mt-6">
           <TableCaption>A list of recent ride activities.</TableCaption>
           <TableHeader>
             <TableRow>
@@ -63,6 +64,7 @@ const AdminRides = () => {
             )}
           </TableBody>
         </Table>
+        <Pagination meta={meta as IMeta} />
       </div>
     </section>
   );

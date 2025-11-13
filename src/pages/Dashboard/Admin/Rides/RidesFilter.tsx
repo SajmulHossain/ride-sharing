@@ -42,13 +42,13 @@ const RidesFilter = () => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="flex gap-4">
-        <Input placeholder="Search" defaultValue={search} name="search" />
+        <Input placeholder="Search" defaultValue={search} name="search" className="w-full" />
         <Select defaultValue={status} name="status">
           <SelectTrigger value="" className="w-[180px]">
             <SelectValue placeholder="Filter Status" />
           </SelectTrigger>
           <SelectContent>
-            {["All", ...Object.values(rideStatus)].map(
+            {Object.values(rideStatus).map(
               (status) =>
                 (status === rideStatus.completed ||
                 status === rideStatus.cancelled) && (
