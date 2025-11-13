@@ -52,7 +52,7 @@ const CommonRide = ({ ride }: { ride: IRide }) => {
             </div>
           ))}
         </div>
-        {user?.role === userRole.driver && (
+        {user?.role === userRole.driver && currentRideStatus !== 'cancelled' && (
           <Button
             disabled={isLoading}
             onClick={handleUpdateStatus}
