@@ -1,5 +1,5 @@
 import { baseApi } from "@/redux/baseApi";
-import type { Response } from "@/types";
+import type { IRide, Response } from "@/types";
 
 export const driverApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,16 +9,23 @@ export const driverApi = baseApi.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["DRIVER_ACTIVE"],
-      transformResponse: (res: Response<boolean>) => res.data
+      transformResponse: (res: Response<boolean>) => res.data,
+    }),
+    getDriverHistory: builder.query<IRide[], unknown>({
+      query: () => ({
+        url: "/drivers/history",
+        method: "GET",
+      }),
+      transformResponse: (res: Response<IRide[]>) => res.data,
     }),
     toggleStatus: builder.mutation({
-        query: () => ({
-            url: "/drivers/active",
-            method: "PATCH",
-        }),
-        invalidatesTags: ["DRIVER_ACTIVE"]
+      query: () => ({
+        url: "/drivers/active",
+        method: "PATCH",
+      }),
+      invalidatesTags: ["DRIVER_ACTIVE"],
     }),
   }),
 });
 
-export const { useGetActiveStatusQuery, useToggleStatusMutation } = driverApi;
+export const { useGetActiveStatusQuery, useToggleStatusMutation, useGetDriverHistoryQuery } = driverApi;

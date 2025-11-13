@@ -1,18 +1,19 @@
+import DriverHistory from "@/pages/Dashboard/Driver/History/DriverHistory";
 import type { SidebarRouteType } from "@/types";
-import { BedIcon, HistoryIcon } from "lucide-react";
+import { CarIcon } from "lucide-react";
 import { riderRoutes } from "./riderRoutes";
 
 export const driverRoutes: SidebarRouteType[] = [
   {
-    title: "Service Driver",
+    title: "Driver Driver",
     url: "#",
-    icon: BedIcon,
+    icon: CarIcon,
     isActive: true,
     items: [
       {
-        title: "History",
-        url: "history",
-        Component: HistoryIcon,
+        title: "Drive History",
+        url: "drive-history",
+        Component: DriverHistory,
       },
     ],
   },
