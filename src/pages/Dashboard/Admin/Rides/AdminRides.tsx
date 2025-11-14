@@ -34,8 +34,8 @@ const AdminRides = () => {
 
       <RidesFilter />
 
-      <div className="mt-6 w-full overflow-x-auto">
-        <Table className="min-w-max">
+      <div className="mt-6">
+        <Table>
           <TableCaption>A list of recent ride activities.</TableCaption>
           <TableHeader>
             <TableRow>

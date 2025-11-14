@@ -7,9 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
 import { useSearchParams } from "react-router";
 
 const UserFilter = ({ role }: { role: string }) => {
+  const [riderStatus, setRiderStatus] = useState("");
+  const [driverApprovalStatus, setDriverApprovalStatus] = useState("");
+  const [search, setSearch] = useState("");
+
   const [searchParams, setSearchParams] = useSearchParams();
   const driverApprovalStatusValue =
     searchParams.get("driverApprovalStatus") || "";
@@ -36,25 +41,14 @@ const UserFilter = ({ role }: { role: string }) => {
   //     setSearchParams(params);
   //   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const form = e.target as typeof e.target & {
-      search: { value: string };
-      driverApprovalStatus: { value: string };
-      riderStatus: { value: string };
-    };
-    const search = form.search.value || "";
-    const driverApprovalStatus = form.driverApprovalStatus?.value || "";
-    const riderStatus = form.riderStatus?.value || "";
-
+  const handleSubmit = () => {
     const params = new URLSearchParams(searchParams);
-    
+
     params.set("search", search);
-    if(role === 'rider') {
+    if (role === "rider") {
       params.set("riderStatus", riderStatus);
     }
-    if(role === 'driver') {
+    if (role === "driver") {
       params.set("driverApprovalStatus", driverApprovalStatus);
     }
 
@@ -62,50 +56,52 @@ const UserFilter = ({ role }: { role: string }) => {
   };
 
   return (
-      <form onSubmit={handleSubmit}>
-          <div className="flex gap-4">
-        <Input
-          placeholder="Search"
-          defaultValue={searchValue}
-          //   onChange={handleSearch}
-          name="search"
-        />
-        {role === "driver" ? (
-          <>
-            <Select
-              defaultValue={driverApprovalStatusValue}
-              //   onValueChange={handleStatusFilter}
-              name="driverApprovalStatus"
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Filter Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="approve">Approved</SelectItem>
-                <SelectItem value="suspend">Suspended</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-              </SelectContent>
-            </Select>
-          </>
-        ): <Select
-              defaultValue={riderStatusValue}
-              name="riderStatus"
-            >
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Filter Status" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="blocked">Blocked</SelectItem>
-                <SelectItem value="unblocked">Unblock</SelectItem>
-              </SelectContent>
-            </Select>}
+    <div className="flex gap-4 flex-wrap sm:flex-nowrap">
+      <Input
+        placeholder="Search"
+        defaultValue={searchValue}
+        onChange={(e) => setSearch(e.target.value)}
+        name="search"
+        className="w-full"
+      />
+      {role === "driver" ? (
+        <>
+          <Select
+            onValueChange={(value) => setDriverApprovalStatus(value)}
+            defaultValue={driverApprovalStatusValue}
+            name="driverApprovalStatus"
+          >
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter Status" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="approve">Approved</SelectItem>
+              <SelectItem value="suspend">Suspended</SelectItem>
+              <SelectItem value="pending">Pending</SelectItem>
+            </SelectContent>
+          </Select>
+        </>
+      ) : (
+        <Select
+          defaultValue={riderStatusValue}
+          onValueChange={(value) => setRiderStatus(value)}
+          name="riderStatus"
+        >
+          <SelectTrigger className="w-[180px]">
+            <SelectValue placeholder="Filter Status" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="blocked">Blocked</SelectItem>
+            <SelectItem value="unblocked">Unblocked</SelectItem>
+          </SelectContent>
+        </Select>
+      )}
 
-        <Button type="submit">Done</Button>
-      <Button type="button" variant={"outline"} onClick={handleClearFilter}>
+      <Button onClick={handleSubmit}>Done</Button>
+      <Button variant={"outline"} onClick={handleClearFilter}>
         Clear
       </Button>
     </div>
-      </form>
   );
 };
 

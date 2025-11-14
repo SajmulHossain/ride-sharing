@@ -37,11 +37,12 @@ const RidesFilter = () => {
   };
   
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 flex-wrap sm:flex-nowrap">
       <Input
         placeholder="Search"
         defaultValue={search}
         onChange={(e) => setSearch(e.target.value)}
+        className="w-full"
       />
       <Select onValueChange={(value) => setStatus(value)} defaultValue={status} name="status">
         <SelectTrigger className="w-[180px]">
