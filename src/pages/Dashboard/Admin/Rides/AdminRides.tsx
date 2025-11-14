@@ -17,8 +17,8 @@ import RideTableRow from "./RideTableRow";
 
 const AdminRides = () => {
   const [searchParams] = useSearchParams();
-  const status = searchParams.get("status") || undefined;
-  const search = searchParams.get("search") || undefined;
+  const status = searchParams.get("status") || "";
+  const search = searchParams.get("search") || "";
 
   const page = searchParams.get("page") || "1";
   const { data } = useGetAllRidesQuery({
