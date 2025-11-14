@@ -29,13 +29,13 @@ const AdminRides = () => {
   const { meta, rides } = data || {};
 
   return (
-    <section className="section overflow-hidden">
+    <section className="section">
       <Heading heading="All Rides" description="All rides here..." />
 
       <RidesFilter />
 
-      <div>
-        <Table className="mt-6">
+      <div className="mt-6 w-full overflow-x-auto">
+        <Table className="min-w-max">
           <TableCaption>A list of recent ride activities.</TableCaption>
           <TableHeader>
             <TableRow>

@@ -25,7 +25,8 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
           {role === "driver" && (
             <Fragment>
               <TableHead>Model No</TableHead>
-              <TableHead>Reg No</TableHead> <TableHead>Active</TableHead>
+              <TableHead>Reg No</TableHead> 
+              <TableHead>Active</TableHead>
             </Fragment>
           )}
           <TableHead className="text-right">Action</TableHead>

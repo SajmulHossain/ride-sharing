@@ -14,7 +14,6 @@ const Pagination = ({ meta }: { meta: IMeta }) => {
   const { totalPage } = meta || {};
   const [searchParams, setSearchParams] = useSearchParams();
   const pagesArray = Array.from({ length: totalPage }, (_, index) => index + 1);
-  console.log(meta);
 
   const currentPageValue: number = Number(searchParams.get("page")) || 1;
 
@@ -32,6 +31,7 @@ const Pagination = ({ meta }: { meta: IMeta }) => {
       setSearchParams(params);
     }
   };
+
   const handleNext = () => {
     if (totalPage > currentPageValue) {
       const page = currentPageValue + 1;
@@ -43,7 +43,7 @@ const Pagination = ({ meta }: { meta: IMeta }) => {
 
   if (totalPage > 1)
     return (
-      <PG>
+      <PG className="mt-6">
         <PaginationContent>
           <PaginationItem
             className={cn(

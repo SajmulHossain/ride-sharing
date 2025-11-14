@@ -32,8 +32,6 @@ const RidesFilter = () => {
     const params = new URLSearchParams(searchParams);
     params.set("status", statusTerm);
     params.set("search", searchTerm);
-    console.log(statusTerm);
-
 
     setSearchParams(params);
   };
@@ -44,7 +42,6 @@ const RidesFilter = () => {
         placeholder="Search"
         defaultValue={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full"
       />
       <Select onValueChange={(value) => setStatus(value)} defaultValue={status} name="status">
         <SelectTrigger className="w-[180px]">
