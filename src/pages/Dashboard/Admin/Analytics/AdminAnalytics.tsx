@@ -1,7 +1,8 @@
 import { useGetAdminAnalyticsQuery } from "@/redux/features/analytics/analytics.api";
-import type { IRevenueTrend, IRideVolume } from "@/types";
+import type { IDriverActivity, IRevenueTrend, IRideVolume } from "@/types";
 import { RideVolume } from "./RideVolume";
 import { RevenuTrend } from "./RevenuTrend";
+import { DriverActivityChart } from "./DriverActivites";
 
 const AdminAnalytics = () => {
   const {data:analytics} = useGetAdminAnalyticsQuery(undefined);
@@ -12,6 +13,8 @@ const AdminAnalytics = () => {
       <RideVolume data={analytics?.rideVolume as IRideVolume[]} />
 
       <RevenuTrend data={analytics?.revenueTrend as IRevenueTrend[]} />
+
+      <DriverActivityChart data={analytics?.driverActivity as IDriverActivity[]} />
     </section>
   );
 };
