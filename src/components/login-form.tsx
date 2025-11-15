@@ -12,7 +12,7 @@ import { useLoginMutation } from "@/redux/features/auth/auth.api";
 import type { ErrorResponse } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "sonner";
 import z from "zod";
 import {
@@ -47,30 +47,32 @@ export function LoginForm({
 
   const [login, { isLoading }] = useLoginMutation();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const toastId = toast.loading("Checking Credintials");
     try {
       await login(values).unwrap();
       toast.success("Logged in successfull", { id: toastId });
+      navigate(state || "/");
     } catch (err: unknown) {
-      const error  = err as ErrorResponse;
+      const error = err as ErrorResponse;
       if (
         error.data.message === "Your account is suspended" ||
         error.data.message === "Your accont is blocked"
       ) {
         navigate("/disabled");
       }
-        toast.error(error?.data?.message || "Wrong credentials", {
-          id: toastId,
-        });
+      toast.error(error?.data?.message || "Wrong credentials", {
+        id: toastId,
+      });
     }
 
-  //  await sendResponse(
-  //    () => login(values),
-  //    "Login",
-  //    () => navigate(state || "/")
-  //  );
+    //  await sendResponse(
+    //    () => login(values),
+    //    "Login",
+    //    () => navigate(state || "/")
+    //  );
   }
 
   return (
