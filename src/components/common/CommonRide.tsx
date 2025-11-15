@@ -39,7 +39,7 @@ const CommonRide = ({ ride }: { ride: IRide }) => {
 
         <div className="flex flex-wrap gap-2 mt-4">
           {status?.map(({ state, createdAt }, index) => (
-            <div key={index} className="border rounded-2xl py-2 px-4">
+            <div key={index} className="border rounded-2xl py-2 px-4 flex-1">
               <p className="capitalize mb-2">{state}</p>
               <p>
                 <Badge variant="secondary">
