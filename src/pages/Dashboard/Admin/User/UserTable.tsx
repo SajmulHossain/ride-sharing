@@ -11,8 +11,9 @@ import { cn } from "@/lib/utils";
 import type { IUser, TRole } from "@/types";
 import UserActionDropdown from "./UserActionDropdown";
 import { Fragment } from "react/jsx-runtime";
+import TableRowSkeleton from "@/components/common/TableRowSkeleton";
 
-const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
+const UserTable = ({ data, role, isLoading }: { data: IUser[]; role: string, isLoading: boolean }) => {
   return (
     <Table>
       <TableCaption></TableCaption>
@@ -33,7 +34,7 @@ const UserTable = ({ data, role }: { data: IUser[]; role: string }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {!data.length ? (
+        {isLoading ? <TableRowSkeleton colspan={20} /> :!data.length ? (
           <TableCell
             colSpan={role === "rider" ? 5 : 7}
             className="text-center text-destructive font-semibold text-lg h-60"

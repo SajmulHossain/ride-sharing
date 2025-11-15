@@ -19,17 +19,9 @@ const Users = ({
   return (
     <div>
       <UserFilter role={role} />
-      {isLoading ? (
-        <div className="space-y-2 w-full">
-          {users.map((_, index) => (
-            <Skeleton key={index} className="w-full h-10"></Skeleton>
-          ))}
-        </div>
-      ) : (
-        <>
-          <UserTable data={users} role={role} />
-        </>
-      )}
+
+      <UserTable data={users} role={role} isLoading={isLoading} />
+
       <Pagination meta={meta} />
     </div>
   );
