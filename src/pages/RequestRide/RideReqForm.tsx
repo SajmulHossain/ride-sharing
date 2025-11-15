@@ -19,8 +19,10 @@ import GoToLocation from "./GoToLocation";
 import SearchLocation from "./SearchLocation";
 import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
 import { sendResponse } from "@/utils/sendResponse";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { Separator } from "@/components/ui/separator";
+import { useGetMeQuery } from "@/redux/features/auth/auth.api";
+import UpdateSosInfo from "../Dashboard/UpdateSosInfo/UpdateSosInfo";
 
 const RequestRide = () => {
   const [requestRide, { isLoading }] = useRequestRideMutation();
@@ -34,6 +36,7 @@ const RequestRide = () => {
   const [route, setRoute] = useState<[number, number][]>([]);
   const [amount, setAmount] = useState(0);
   const [distance, setDistance] = useState(0);
+  const {data:user} = useGetMeQuery(undefined);
 
   useEffect(() => {
     const route = async () => {
@@ -57,6 +60,11 @@ const RequestRide = () => {
       setDistance(distance);
     }
   }, [pickup, destination]);
+
+  if(!user?.emergencyContact) {
+    // return <Navigate to={"/dashboard/update-sos"} state={"/request-ride"} />
+    return <UpdateSosInfo />
+  }
 
   const handleRequest = async () => {
     const data = {

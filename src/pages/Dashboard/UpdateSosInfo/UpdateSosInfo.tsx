@@ -41,7 +41,7 @@ const UpdateSosInfo = () => {
       "Emergency Contact update"
     );
   };
-  
+
   return (
     <section className="section">
       <Card>
