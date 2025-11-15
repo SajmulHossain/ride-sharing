@@ -13,6 +13,7 @@ export interface IUser {
   phone: string;
   role: TRole;
   isBlocked?: boolean;
+  emergencyContact?: string;
 
   driverApprovalStatus: string;
   isDriverActive: boolean;

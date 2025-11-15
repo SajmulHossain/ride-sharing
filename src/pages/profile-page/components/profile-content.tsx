@@ -16,6 +16,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 import { registerZodSchema } from "@/constant/register.zodSchema";
 import { useUpdateUserMutation } from "@/redux/features/user/user.api";
 import type { IUser } from "@/types";
@@ -43,14 +44,17 @@ export default function ProfileContent({ user }: { user: IUser | undefined }) {
     },
   });
 
-  const [update, {isLoading}] = useUpdateUserMutation();
+  const [update, { isLoading }] = useUpdateUserMutation();
 
   const onsubmit = async (data: z.infer<typeof formSchema>) => {
     if (!form.formState.isDirty) {
       return toast.error("No value changed");
     }
 
-    await sendResponse(() => update({data, email: user?.email}), "Profile update");
+    await sendResponse(
+      () => update({ data, email: user?.email }),
+      "Profile update"
+    );
   };
 
   return (
@@ -114,14 +118,18 @@ export default function ProfileContent({ user }: { user: IUser | undefined }) {
                   </FormItem>
                 )}
               />
+            </div>
 
-              {user?.role === "driver" && (
-                <>
+            {user?.role === "driver" && (
+                <div className="mt-6">
+                  <h2 className="font-semibold">Vehicle Information</h2>
+                  <Separator className="my-2" />
+                  <div className="flex flex-col gap-6 md:flex-row">
                   <FormField
                     control={form.control}
                     name="vehicleInfo.model"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full">
                         <FormLabel>Model</FormLabel>
                         <FormControl>
                           <Input placeholder="Model Number" {...field} />
@@ -137,7 +145,7 @@ export default function ProfileContent({ user }: { user: IUser | undefined }) {
                     control={form.control}
                     name="vehicleInfo.registration_no"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="w-full">
                         <FormLabel>Registration No</FormLabel>
                         <FormControl>
                           <Input placeholder="Registration No" {...field} />
@@ -149,10 +157,16 @@ export default function ProfileContent({ user }: { user: IUser | undefined }) {
                       </FormItem>
                     )}
                   />
-                </>
-              )}
-            </div>
-              <Button className="mt-4 w-full md:w-fit" disabled={isLoading || !form.formState.isDirty} type="submit">Submit</Button>
+                </div>
+              </div>
+            )}
+            <Button
+              className="mt-4 w-full md:w-fit"
+              disabled={isLoading || !form.formState.isDirty}
+              type="submit"
+            >
+              Submit
+            </Button>
           </form>
         </Form>
       </CardContent>

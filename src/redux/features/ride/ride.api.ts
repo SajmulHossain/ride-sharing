@@ -29,7 +29,8 @@ export const rideApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/rides/ride",
         method: "GET",
-      }),providesTags: ["RIDE"],
+      }),
+      providesTags: ["RIDE"],
       transformResponse: (response: Response<IRide>) => response.data,
     }),
     updateRideStatus: builder.mutation({
@@ -38,32 +39,35 @@ export const rideApi = baseApi.injectEndpoints({
         method: "PATCH",
         data: { status },
       }),
-      invalidatesTags: ["RIDE"]
+      invalidatesTags: ["RIDE"],
     }),
-    getAvailableRides: builder.query<(IRideWithUser)[], unknown>({
+    getAvailableRides: builder.query<IRideWithUser[], unknown>({
       query: () => ({
         url: "/rides/available-rides",
         method: "GET",
       }),
       providesTags: ["RIDE"],
-      transformResponse: (response: Response<IRideWithUser[]>) => response.data
+      transformResponse: (response: Response<IRideWithUser[]>) => response.data,
     }),
     getCurrentRide: builder.query<IRideWithUser, unknown>({
       query: () => ({
         url: "/rides/current",
-        method: "GET"
+        method: "GET",
       }),
       providesTags: ["RIDE"],
-      transformResponse: (res: Response<IRideWithUser>) => res.data
+      transformResponse: (res: Response<IRideWithUser>) => res.data,
     }),
     getAllRides: builder.query({
       query: (params) => ({
         url: "/rides/all-rides",
         method: "GET",
-        params
+        params,
       }),
-      transformResponse: (res: Response<IRide[]>) => ({rides: res.data, meta: res?.meta})
-    })
+      transformResponse: (res: Response<IRide[]>) => ({
+        rides: res.data,
+        meta: res?.meta,
+      }),
+    }),
   }),
 });
 
@@ -75,5 +79,5 @@ export const {
   useUpdateRideStatusMutation,
   useGetAvailableRidesQuery,
   useGetCurrentRideQuery,
-  useGetAllRidesQuery
+  useGetAllRidesQuery,
 } = rideApi;

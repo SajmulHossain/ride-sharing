@@ -20,6 +20,7 @@ import SearchLocation from "./SearchLocation";
 import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
 import { sendResponse } from "@/utils/sendResponse";
 import { useNavigate } from "react-router";
+import { Separator } from "@/components/ui/separator";
 
 const RequestRide = () => {
   const [requestRide, { isLoading }] = useRequestRideMutation();
@@ -77,32 +78,37 @@ const RequestRide = () => {
 
   return (
     <Card>
-      <CardContent className="flex flex-col md:flex-row gap-12">
-        {pickup && destination && (
-          <Alert className="w-fit">
-            <AlertDescription className="flex gap-4">
-              <p>Distance: {distance}m</p>
-              <SidebarSeparator orientation="vertical" />
-              <p>Amount: {amount} BDT</p>
-            </AlertDescription>
-          </Alert>
-        )}
+      <CardContent className="flex flex-col lg:flex-row gap-12">
+        <div className="flex-1">
+          {pickup && destination && (
+            <>
+              <Alert className="w-fit mb-4">
+                <AlertDescription className="flex gap-4">
+                  <p>Distance: {distance}m</p>
+                  <SidebarSeparator orientation="vertical" />
+                  <p>Amount: {amount} BDT</p>
+                </AlertDescription>
+              </Alert>
+              <Separator className="mb-4" />
+            </>
+          )}
 
-        <div className="space-y-6 flex-1">
-          <SearchLocation
-            setCurrentLocation={setCurrentLocation}
-            label="Pickup"
-            onSelect={setPickup}
-          />
-          <SearchLocation label="Destination" onSelect={setDestination} />
-          <Button
-            disabled={isLoading || !(pickup && destination)}
-            onClick={handleRequest}
-            type="button"
-            className="w-full"
-          >
-            Request Ride
-          </Button>
+          <div className="space-y-6">
+            <SearchLocation
+              setCurrentLocation={setCurrentLocation}
+              label="Pickup"
+              onSelect={setPickup}
+            />
+            <SearchLocation label="Destination" onSelect={setDestination} />
+            <Button
+              disabled={isLoading || !(pickup && destination)}
+              onClick={handleRequest}
+              type="button"
+              className="w-full"
+            >
+              Request Ride
+            </Button>
+          </div>
         </div>
 
         <div className="flex-1 z-0">

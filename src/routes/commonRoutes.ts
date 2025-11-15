@@ -1,4 +1,5 @@
 import ChangePassword from "@/pages/ChangePassword/ChangePassword";
+import UpdateSosInfo from "@/pages/Dashboard/UpdateSosInfo/UpdateSosInfo";
 import Profile from "@/pages/profile-page/Profile";
 import type { SidebarRouteType } from "@/types";
 import { LockKeyholeIcon } from "lucide-react";
@@ -18,8 +19,13 @@ export const commonRoutes: SidebarRouteType[] = [
       {
         title: "Change Password",
         url: "change-password",
-        Component: ChangePassword
-      }
+        Component: ChangePassword,
+      },
+      {
+        title: "Safety",
+        url: "update-sos",
+        Component: UpdateSosInfo,
+      },
     ],
-  }
+  },
 ];
