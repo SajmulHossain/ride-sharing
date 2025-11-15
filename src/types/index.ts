@@ -7,3 +7,4 @@ export * from "./sidebar.type";
 export * from "./history.type";
 export * from "./ride.type";
 export * from "./earning.type";
+export * from "./analytic.type";

@@ -2,9 +2,13 @@
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import { SidebarSeparator } from "@/components/ui/sidebar";
+import { useGetMeQuery } from "@/redux/features/auth/auth.api";
+import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
 import { getDistance } from "@/utils/getDistance";
 import { getRoutes } from "@/utils/getRoute";
+import { sendResponse } from "@/utils/sendResponse";
 import type { LatLngExpression } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
@@ -15,14 +19,10 @@ import {
   Popup,
   TileLayer,
 } from "react-leaflet";
+import { useNavigate } from "react-router";
+import UpdateSosInfo from "../Dashboard/UpdateSosInfo/UpdateSosInfo";
 import GoToLocation from "./GoToLocation";
 import SearchLocation from "./SearchLocation";
-import { useRequestRideMutation } from "@/redux/features/ride/ride.api";
-import { sendResponse } from "@/utils/sendResponse";
-import { Navigate, useNavigate } from "react-router";
-import { Separator } from "@/components/ui/separator";
-import { useGetMeQuery } from "@/redux/features/auth/auth.api";
-import UpdateSosInfo from "../Dashboard/UpdateSosInfo/UpdateSosInfo";
 
 const RequestRide = () => {
   const [requestRide, { isLoading }] = useRequestRideMutation();
@@ -62,7 +62,6 @@ const RequestRide = () => {
   }, [pickup, destination]);
 
   if(!user?.emergencyContact) {
-    // return <Navigate to={"/dashboard/update-sos"} state={"/request-ride"} />
     return <UpdateSosInfo />
   }
 

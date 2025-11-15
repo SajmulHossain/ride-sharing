@@ -1,4 +1,4 @@
-import AdminAnalytics from "@/pages/Dashboard/Admin/User/AdminAnalytics";
+import AdminAnalytics from "@/pages/Dashboard/Admin/Analytics/AdminAnalytics";
 import Drivers from "@/pages/Dashboard/Admin/User/Driver/Drivers";
 import Riders from "@/pages/Dashboard/Admin/User/Rider/Riders";
 import type { SidebarRouteType } from "@/types";
