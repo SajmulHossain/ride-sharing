@@ -56,7 +56,7 @@ const UserFilter = ({ role }: { role: string }) => {
   };
 
   return (
-    <div className="flex gap-4 flex-wrap sm:flex-nowrap">
+    <div className="flex gap-2 md:gap-4 flex-wrap sm:flex-nowrap">
       <Input
         placeholder="Search"
         defaultValue={searchValue}

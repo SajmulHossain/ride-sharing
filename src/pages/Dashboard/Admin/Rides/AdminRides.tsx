@@ -14,6 +14,7 @@ import type { IMeta } from "@/types";
 import { useSearchParams } from "react-router";
 import RidesFilter from "./RidesFilter";
 import RideTableRow from "./RideTableRow";
+import TableRowSkeleton from "@/components/common/TableRowSkeleton";
 
 const AdminRides = () => {
   const [searchParams] = useSearchParams();
@@ -21,7 +22,7 @@ const AdminRides = () => {
   const search = searchParams.get("search") || "";
 
   const page = searchParams.get("page") || "1";
-  const { data } = useGetAllRidesQuery({
+  const { data, isLoading } = useGetAllRidesQuery({
     status,
     search,
     page,
@@ -50,7 +51,7 @@ const AdminRides = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {rides?.length ? (
+            {isLoading ? <TableRowSkeleton colspan={8} /> : rides?.length ? (
               rides?.map((ride) => <RideTableRow key={ride?._id} ride={ride} />)
             ) : (
               <TableRow>
