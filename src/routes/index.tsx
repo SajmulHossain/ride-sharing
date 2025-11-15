@@ -38,8 +38,12 @@ const RouterWrapper = () => {
         },
         {
           path: "/pending",
-          Component: withAuth(Pending)
-        }
+          Component: withAuth(Pending),
+        },
+        {
+          path: "/disabled",
+          Component: Disabled,
+        },
       ],
     },
     {

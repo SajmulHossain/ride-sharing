@@ -10,6 +10,7 @@ export const riderRoutes: SidebarRouteType[] = [
     icon: BedIcon,
     isActive: true,
     items: [
+      { title: "Dashboard", url: "", Component: History },
       {
         title: "History",
         url: "history",
