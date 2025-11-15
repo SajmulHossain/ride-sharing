@@ -1,8 +1,7 @@
-import { Skeleton } from "@/components/ui/skeleton";
+import Pagination from "@/components/Pagination";
+import type { IMeta, IUser, TRole } from "@/types";
 import UserFilter from "./UserFilter";
 import UserTable from "./UserTable";
-import type { IMeta, IUser, TRole } from "@/types";
-import Pagination from "@/components/Pagination";
 
 const Users = ({
   users = [...Array(5)],
@@ -17,13 +16,11 @@ const Users = ({
 }) => {
 
   return (
-    <div>
+    <>
       <UserFilter role={role} />
-
       <UserTable data={users} role={role} isLoading={isLoading} />
-
       <Pagination meta={meta} />
-    </div>
+    </>
   );
 };
 
